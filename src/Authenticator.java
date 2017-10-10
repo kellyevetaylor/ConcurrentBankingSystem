@@ -31,6 +31,10 @@ class Authenticator {
         }
     }
 
+    /**
+     * Adds a given user to the list of authenticated users
+     * @param user the user to authenticate
+     */
     void setAuthenticated(User user) {
         userList.add(user);
     }

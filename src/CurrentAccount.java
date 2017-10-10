@@ -3,7 +3,7 @@
  * This account is a standard account, it has no interest rates
  * for saving money. It will however have an overdraft. TODO think about overdraft implementation
  */
-public class CurrentAccount implements Account{
+public class CurrentAccount implements Account {
 
     private double balance;
     private boolean isJoint;
@@ -12,6 +12,7 @@ public class CurrentAccount implements Account{
 
     /**
      * Constructor
+     *
      * @param balance the initial balance of the account
      * @param isJoint boolean switch to decide if joint or not (UNSURE ABOUT THIS)
      */

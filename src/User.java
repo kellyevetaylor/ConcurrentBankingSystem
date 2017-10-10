@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Model the user and establish the relationship with the account class in here.
- * Also consider authentication in here/
+ * Also consider authentication in here
  */
 class User {
     private String username;
@@ -26,6 +26,10 @@ class User {
         return password;
     }
 
+    /**
+     * Adds an account to the users list of accounts
+     * @param account the account to be added
+     */
     void addAccount(Account account) {
         accountsList.add(account);
     }

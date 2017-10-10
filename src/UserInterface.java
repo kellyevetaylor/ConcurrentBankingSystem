@@ -148,7 +148,7 @@ class UserInterface {
      * This lists all the accounts belonging to the logged in user
      * @param user the logged in user
      */
-    private void displayAccountView(User user){
+    private void displayAccountView(User user) {
         System.out.println(user.getUsername() + "'s " + "accounts:");
         ArrayList<Account> accountsList = (ArrayList<Account>) user.getAccounts();
         if (accountsList == null || accountsList.isEmpty()) {

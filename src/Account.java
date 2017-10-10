@@ -5,7 +5,7 @@ public interface Account {
      * Adds money to an account
      * @param amount the quantity of money to add
      */
-	void debit(double amount);
+    void debit(double amount);
 
     /**
      * Removes money from an account
@@ -14,11 +14,13 @@ public interface Account {
     void credit(double amount);
 
     /**
-     * Returns the balance of the account
      * @return the balance of the account
      */
-	double getBalance();
+    double getBalance();
 
-	String getName();
+    /**
+     * @return the name of the account
+     */
+    String getName();
 
 }
