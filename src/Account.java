@@ -19,4 +19,6 @@ public interface Account {
      */
 	double getBalance();
 
+	String getName();
+
 }
