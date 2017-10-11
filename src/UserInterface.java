@@ -3,11 +3,19 @@ import java.util.Scanner;
 
 class UserInterface {
     private Authenticator authenticator = new Authenticator();
-
+    private String username;
+    private String password;
+    String pass;
+    String user;
     /**
      * Displays the main menu and allows the user to
      * make a selection of what they would like to do
      */
+    public UserInterface(){
+       username = user;
+       password = pass;
+    }
+
     void displayMainMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome! Please select an option:");
@@ -39,28 +47,45 @@ class UserInterface {
      * added to a list of authenticated users from Authenticator
      */
     private void displayUserRegistration() {
-        String username;
-        String password;
-        while (true) {
-            System.out.println("Please choose a username: ");
-            Scanner scanner = new Scanner(System.in);
-            username = scanner.next();
-            System.out.println("Please choose a password: ");
-            String firstPassword = scanner.next();
-            System.out.println("Type your password again to confirm");
-            String secondPassword = scanner.next();
-            if (!firstPassword.equals(secondPassword)) {
-                System.out.println("Error, passwords do not match.");
-            } else {
-                password = secondPassword;
-                break;
-            }
-        }
-        User user = new User(username, password);
-        authenticator.setAuthenticated(user);
-        System.out.println("Account created! Now you can login");
-        displayAccountLogin();
+        getCustomerUsername();
+        getCustomerPassword();
+        createUserAccount();
     }
+
+       public void getCustomerUsername() {
+
+           while (true) {
+               System.out.println("Please choose a username: ");
+               Scanner scanner = new Scanner(System.in);
+               username = scanner.next();
+               break;
+           }
+       }
+
+           public void getCustomerPassword() {
+
+               while (true) {
+
+                   System.out.println("Please choose a password: ");
+                   Scanner scanner = new Scanner(System.in);
+                   String firstPassword = scanner.next();
+                   System.out.println("Type your password again to confirm");
+
+                   String secondPassword = scanner.next();
+                   if (!firstPassword.equals(secondPassword)) {
+                       System.out.println("Error, passwords do not match.");
+                   } else {
+                       password = secondPassword;
+                       break;
+                   }
+               }
+           }
+              public void createUserAccount() {
+                  User user = new User(username, password);
+                  authenticator.setAuthenticated(user);
+                  System.out.println("Account created! Now you can login");
+                  displayAccountLogin();
+              }
 
     /**
      * Called when user wishes to create a new account.
@@ -109,13 +134,16 @@ class UserInterface {
         System.out.println("Password: ");
         String password = scanner.next();
 
-        User user = new User(username, password);
-        if (authenticator.authenticateUser(user)) {
-            displayUserHome(user);
-        } else {
-            System.out.println("Error, there is no account matching those details");
+
+            User user = new User(username, password);
+            if (authenticator.authenticateUser(user)) {
+                displayUserHome(user);
+            } else {
+                System.out.println("Error, there is no account matching those details");
+                displayAccountLogin();
+            }
         }
-    }
+
 
     /**
      * This is the home screen of a logged in user.
@@ -168,7 +196,26 @@ class UserInterface {
             }
         } else {
             for (Account account : user.getAccounts()) {
-                System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + account.getBalance());
+                System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£"+ account.getBalance());
+                System.out.println("Would you like to add money to you're account?");
+                System.out.println("Enter y or n:");
+                Scanner scanner = new Scanner(System.in);
+                String choice = scanner.next();
+                switch (choice){
+                    case "y":
+                        System.out.println("Please enter an amount to add:");
+                        Scanner scan = new Scanner(System.in);
+                        double amount = scanner.nextDouble();
+                        account.debit(amount);
+                        System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                        break;
+                    case "n":
+                        displayUserHome(user);
+                        break;
+
+                        default:
+                            System.out.println("Error, please enter y or n to make your choice");
+                }
             }
         }
 
