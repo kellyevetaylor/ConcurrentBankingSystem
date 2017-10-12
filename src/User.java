@@ -19,9 +19,11 @@ class User {
     List<Account> getAccounts() {
         return accountsList;
     }
+
     String getUsername() {
         return username;
     }
+
     String getPassword() {
         return password;
     }

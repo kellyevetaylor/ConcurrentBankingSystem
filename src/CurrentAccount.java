@@ -24,7 +24,7 @@ public class CurrentAccount implements Account {
     }
 
     @Override
-    public void debit(double amount) {
+    public void deposit(double amount) {
         balance += amount;
     }
 
@@ -41,5 +41,10 @@ public class CurrentAccount implements Account {
     @Override
     public String getName() {
         return accountName;
+    }
+
+    @Override
+    public void transfer() {
+
     }
 }
