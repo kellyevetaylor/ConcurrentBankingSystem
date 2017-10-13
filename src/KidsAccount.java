@@ -35,8 +35,12 @@ public class KidsAccount implements Account {
 
    
     public void credit(double amount) {
-        balance-=amount;
-    }
+     if(amount>max){
+    	System.out.println("Cannot withdraw over the £"+max+ " set."); 
+     }else{
+     
+    	balance-=amount;
+    }}
 
     @Override
     public double getBalance() {
