@@ -23,7 +23,6 @@ public class SavingsAccount implements Account {
         balance += amount;
     }
 
-
     @Override
     public void credit(double amount) { balance -= amount;
     }
