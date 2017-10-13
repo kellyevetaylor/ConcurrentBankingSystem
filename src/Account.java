@@ -12,8 +12,8 @@ public interface Account {
      * @param amount the quantity of money to remove
      */
 
-    //This method
-    void credit(double amount);
+    //This methodnot needed since not all accounts can withdraw
+    //void credit(double amount);
 
     /**
      * @return the balance of the account
