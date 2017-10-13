@@ -5,26 +5,13 @@ import java.util.Scanner;
 
 class UserInterface {
     private Authenticator authenticator = new Authenticator();
-    private String username;
-    private String password;
-    String accountName;
-    String pass;
-    String user;
-    String dob;
-    String address;
-    String postcode;
-    Double max;
 
     /**
      * Displays the main menu and allows the user to
      * make a selection of what they would like to do
      */
-    public UserInterface() {
-        username = user;
-        password = pass;
-    }
-
     void displayMainMenu() {
+        sectionDivider();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome! Please select an option:");
         System.out.println();
@@ -55,31 +42,17 @@ class UserInterface {
      * added to a list of authenticated users from Authenticator
      */
     private void displayUserRegistration() {
-        getCustomerUsername();
-        getCustomerPassword();
-        createUserAccount();
-    }
-
-    public void getCustomerUsername() {
-
+        sectionDivider();
+        System.out.println("    User Registration");
+        System.out.println();
+        String password;
+        System.out.println("Please choose a username: ");
+        String username = getUserInput();
         while (true) {
-            System.out.println("Please choose a username: ");
-            Scanner scanner = new Scanner(System.in);
-            username = scanner.next();
-            break;
-        }
-    }
-
-    public void getCustomerPassword() {
-
-        while (true) {
-
             System.out.println("Please choose a password: ");
-            Scanner scanner = new Scanner(System.in);
-            String firstPassword = scanner.next();
+            String firstPassword = getUserInput();
             System.out.println("Type your password again to confirm");
-
-            String secondPassword = scanner.next();
+            String secondPassword = getUserInput();
             if (!firstPassword.equals(secondPassword)) {
                 System.out.println("Error, passwords do not match.");
             } else {
@@ -87,9 +60,6 @@ class UserInterface {
                 break;
             }
         }
-    }
-
-    public void createUserAccount() {
         User user = new User(username, password);
         authenticator.setAuthenticated(user);
         System.out.println("Account created! Now you can login");
@@ -102,16 +72,17 @@ class UserInterface {
      * some account builder functionality to create said accounts.
      */
     private void displayAccountCreation(User user) {
+        sectionDivider();
         System.out.println("Please select the type of account you wish to create");
         System.out.println("1. Current Account");
         System.out.println("2. Savings Account");
         System.out.println("3. Children's Account");
-        Scanner scanner = new Scanner(System.in);
-        String choice = scanner.next();
+        String choice = getUserInput();
+        String accountName;
         switch (choice) {
             case "1":
                 System.out.println("Enter the name for the current account: ");
-                accountName = scanner.next();
+                accountName = getUserInput();
                 Account currentAcc = new CurrentAccount(0, false, user, accountName);
                 user.addAccount(currentAcc);
                 displayAccountView(user);
@@ -119,7 +90,7 @@ class UserInterface {
 
             case "2":
                 System.out.println("Enter the name for the savings account");
-                accountName = scanner.next();
+                accountName = getUserInput();
                 Account savingsAcc = new SavingsAccount(0,false, user, accountName);
                 user.addAccount(savingsAcc);
                 displayAccountView(user);
@@ -127,9 +98,10 @@ class UserInterface {
 
             case "3":
                 System.out.println("Enter the name for the kids account");
-                accountName = scanner.next();
+                accountName = getUserInput();
                 System.out.println("Please enter the maximum withdrawal amount for " + accountName);
-                max = scanner.nextDouble();
+                Scanner scanner = new Scanner(System.in);
+                Double max = scanner.nextDouble();
                 Account kidsAcc = new KidsAccount(0, true, user, accountName, max);
                 user.addAccount(kidsAcc);
                 displayAccountView(user);
@@ -148,14 +120,18 @@ class UserInterface {
      * and password.
      */
     private void displayAccountLogin() {
-        System.out.println("Account Login");
-        System.out.println("------------");
+        sectionDivider();
+        System.out.println("    Account Login");
+        System.out.println();
+        System.out.println("Type \"quit\" to exit");
+        System.out.println("Type \"return\" to go back to the main menu");
+        System.out.println();
         System.out.println("Username: ");
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.next();
+        String username = getUserInput();
+        if (username.equals("quit")) System.exit(0);
+        if (username.equals("return")) displayMainMenu();
         System.out.println("Password: ");
-        String password = scanner.next();
-
+        String password = getUserInput();
 
         User user = new User(username, password);
         if (authenticator.authenticateUser(user)) {
@@ -174,15 +150,14 @@ class UserInterface {
      * @param user the logged in user
      */
     private void displayUserHome(User user) {
+        sectionDivider();
         System.out.println("Hello, " + user.getUsername() + "!");
         System.out.println("------------");
         System.out.println("Select an option: ");
         System.out.println("    1. View Accounts");
         System.out.println("    2. Quit");
 
-        Scanner scanner = new Scanner(System.in);
-        String choice = scanner.next();
-
+        String choice = getUserInput();
         switch (choice) {
             case "1":
                 displayAccountView(user);
@@ -197,17 +172,16 @@ class UserInterface {
 
     /**
      * This lists all the accounts belonging to the logged in user
-     *
      * @param user the logged in user
      */
     private void displayAccountView(User user) {
+        sectionDivider();
         System.out.println(user.getUsername() + "'s " + "accounts:");
         ArrayList<Account> accountsList = (ArrayList<Account>) user.getAccounts();
-        if (accountsList == null || accountsList.isEmpty()) {
+        if (accountsList == null || accountsList.isEmpty()) { // user has no accounts
             System.out.println("You don't seem to have any accounts, would you like to create an account? ");
             System.out.println("Enter y or n:");
-            Scanner scanner = new Scanner(System.in);
-            String choice = scanner.next();
+            String choice = getUserInput();
             switch (choice) {
                 case "y":
                     displayAccountCreation(user);
@@ -218,30 +192,46 @@ class UserInterface {
                 default:
                     System.out.println("Error, please enter y or n to make your choice");
             }
-        } else {
+        } else { // user does have accounts
             for (Account account : user.getAccounts()) {
                 System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
-                System.out.println("Would you like to add money to you're account?");
+                System.out.println("Would you like to add money to you're account?"); // TODO remove from for loop
                 System.out.println("Enter y or n:");
                 Scanner scanner = new Scanner(System.in);
-                String choice = scanner.next();
+                String choice = getUserInput();
                 switch (choice) {
                     case "y":
                         System.out.println("Please enter an amount to add:");
-                        Scanner scan = new Scanner(System.in);
                         double amount = scanner.nextDouble();
                         account.deposit(amount);
                         System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                        displayAccountView(user);
                         break;
                     case "n":
                         displayUserHome(user);
                         break;
-
                     default:
                         System.out.println("Error, please enter y or n to make your choice");
                 }
             }
         }
+    }
 
+    /**
+     * Helper method so we don't have to write the scanner code every time
+     * @return the return value of scanner.next()
+     */
+    private String getUserInput(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
+    }
+
+    /**
+     * Helper method so we can have consistent dividers between UI sections
+     */
+    private void sectionDivider() {
+        System.out.println();
+        System.out.println("------------------------");
+        System.out.println();
     }
 }
