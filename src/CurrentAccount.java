@@ -9,6 +9,7 @@ public class CurrentAccount implements Account {
     private boolean isJoint;
     private User accountHolder;
     private String accountName;
+    private Integer overdraft;
 
     /**
      * Constructor

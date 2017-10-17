@@ -91,7 +91,7 @@ class UserInterface {
             case "2":
                 System.out.println("Enter the name for the savings account");
                 accountName = getUserInput();
-                Account savingsAcc = new SavingsAccount(0,false, user, accountName);
+                Account savingsAcc = new SavingsAccount(0, false, user, accountName);
                 user.addAccount(savingsAcc);
                 displayAccountView(user);
                 break;
@@ -155,29 +155,42 @@ class UserInterface {
         System.out.println("------------");
         System.out.println("Select an option: ");
         System.out.println("    1. View Accounts");
-        System.out.println("    2. Quit");
+        System.out.println("    2. Add an account");
+        System.out.println("    3. Delete an account");
+        System.out.println("    4. Quit");
 
         String choice = getUserInput();
         switch (choice) {
             case "1":
                 displayAccountView(user);
                 break;
+
             case "2":
+                displayAccountCreation(user);
+                break;
+
+            case "3":
+                // TODO code that will remove an account
+
+            case "4":
                 System.exit(0);
+
             default:
-                System.out.println("Error, enter 1 or 2 to make your choice");
+                System.out.println("Error, enter a valid number to make your choice");
         }
 
     }
 
     /**
      * This lists all the accounts belonging to the logged in user
+     *
      * @param user the logged in user
      */
     private void displayAccountView(User user) {
         sectionDivider();
         System.out.println(user.getUsername() + "'s " + "accounts:");
         ArrayList<Account> accountsList = (ArrayList<Account>) user.getAccounts();
+
         if (accountsList == null || accountsList.isEmpty()) { // user has no accounts
             System.out.println("You don't seem to have any accounts, would you like to create an account? ");
             System.out.println("Enter y or n:");
@@ -192,26 +205,45 @@ class UserInterface {
                 default:
                     System.out.println("Error, please enter y or n to make your choice");
             }
+
         } else { // user does have accounts
             for (Account account : user.getAccounts()) {
                 System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
-                System.out.println("Would you like to add money to you're account?"); // TODO remove from for loop
-                System.out.println("Enter y or n:");
+                System.out.println("Select an option: ");
+                System.out.println("    1. Deposit money");
+                System.out.println("    2. Withdraw money");
+                System.out.println("    3. Quit");
                 Scanner scanner = new Scanner(System.in);
                 String choice = getUserInput();
+
                 switch (choice) {
-                    case "y":
+                    case "1":
                         System.out.println("Please enter an amount to add:");
                         double amount = scanner.nextDouble();
                         account.deposit(amount);
                         System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
                         displayAccountView(user);
                         break;
-                    case "n":
+
+                    case "2":
+                        if(account instanceof SavingsAccount){
+                            System.out.println("Sorry, you can't withdraw from a savings account.");
+                            displayAccountView(user);
+                        }
+                        else {
+                            System.out.println("Please enter an amount to withdraw:");
+                            amount = scanner.nextDouble();
+                            // TODO some way to withdraw
+                            System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                            displayAccountView(user);
+                        }
+                        break;
+
+                    case "3":
                         displayUserHome(user);
                         break;
                     default:
-                        System.out.println("Error, please enter y or n to make your choice");
+                        System.out.println("Error, please enter a valid number to make your choice");
                 }
             }
         }
@@ -219,9 +251,10 @@ class UserInterface {
 
     /**
      * Helper method so we don't have to write the scanner code every time
+     *
      * @return the return value of scanner.next()
      */
-    private String getUserInput(){
+    private String getUserInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }

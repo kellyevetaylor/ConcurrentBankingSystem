@@ -12,7 +12,7 @@ public class KidsAccount implements Account {
     private boolean isJoint;
     private double max;
 
-    KidsAccount(double balance, boolean isJoint, User accountHolder, String accountName, double max){
+    KidsAccount(double balance, boolean isJoint, User accountHolder, String accountName, double max) {
         this.balance = balance;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
@@ -21,26 +21,28 @@ public class KidsAccount implements Account {
 
     @Override
     public void deposit(double amount) {
-        balance+= amount;
+        balance += amount;
     }
 
     /**
      * "Parent" enters maximum amount that's allowed to be withdrawn from
      * kids account.    TODO anything over this should throw an error
+     *
      * @return
      */
-    public double maxWithdrawal(){
+    public double getMax() {
         return max;
     }
 
-   
-    public void credit(double amount) {
-     if(amount>max){
-    	System.out.println("Cannot withdraw over the £"+max+ " set."); 
-     }else{
-     
-    	balance-=amount;
-    }}
+
+    public void withdraw(double amount) {
+        if (amount > max) {
+            System.out.println("Cannot withdraw over the £" + max + " set.");
+        } else {
+
+            balance -= amount;
+        }
+    }
 
     @Override
     public double getBalance() {
