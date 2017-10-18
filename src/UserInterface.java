@@ -208,34 +208,15 @@ public class UserInterface {
             }
 
         } else { // user does have accounts
-        	int i = 1;
-            for (Account account: user.getAccounts()){
-            	System.out.print(i+": " );
-            	System.out.print(account.getName()+ "- ");
-            	System.out.println(account.getClass().getSimpleName());
-            	i++;
-            }
-        	System.out.println("What account do you wish to access?");
-        	String userChoice = getUserInput();
-        	int userIn = Integer.parseInt(userChoice) -1;
+        	 Account accessed= accountSelection(user);
         	
-        	
-        	List<Account> accountList= user.getAccounts();
-        	if(userIn > accountList.size()){
-        		System.out.println("Cannot Select an account that doesnt exist");				//TODO maybe change error message to be more useful
-        		displayUserHome(user);
-        	}
-        	else{
-        	Account accessed = accountList.get(userIn);
-        	
-        	
-        	//for (Account account : user.getAccounts()) {
-            
+        
                 System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                 System.out.println("Select an option: ");
                 System.out.println("    1. Deposit money");
                 System.out.println("    2. Withdraw money");
-                System.out.println("    3. Quit");
+                System.out.println("    3. Transfer money");
+                System.out.println("    4. Quit");
                 Scanner scanner = new Scanner(System.in);
                 String choice = getUserInput();
 
@@ -263,16 +244,17 @@ public class UserInterface {
                                 displayAccountView(user);
                             }
 
-                            System.out.println("Please enter an amount to withdraw:");
-                            amount = scanner.nextDouble();
-                            // TODO some way to withdraw
-                            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                            displayAccountView(user);
-
                         }
                         break;
-
                     case "3":
+                    	Account transferTo=accountSelection(user);
+                    	System.out.println("Please give the amount to transfer: ");
+                    	amount = scanner.nextDouble();
+                    	
+                    	
+                    	
+                    	break;
+                    case "4":
                         displayUserHome(user);
                         break;
                     default:
@@ -280,7 +262,7 @@ public class UserInterface {
                 }
             }
         }
-    }
+    
 
     /**
      * Helper method so we don't have to write the scanner code every time
@@ -291,7 +273,39 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
-
+    
+    /** Helper method so we dont have to write code to list and select account whenever we need 
+     * 
+     * 
+     * @return the selected account
+     */
+    private Account accountSelection(User user){
+    	int i = 1;
+        for (Account account: user.getAccounts()){
+        	System.out.print(i+": " );
+        	System.out.print(account.getName()+ "- ");
+        	System.out.println(account.getClass().getSimpleName());
+        	i++;
+        }
+    	System.out.println("Select account or EXIT to return to home: ");
+    	String userChoice = getUserInput();
+    	if(userChoice.equals("EXIT")){
+    		displayUserHome(user);
+    	}
+    	int userIn = Integer.parseInt(userChoice) -1;
+    	
+    	
+    	List<Account> accountList= user.getAccounts();
+    	if(userIn > accountList.size()){
+    		System.out.println("Cannot Select an account that doesnt exist");				//TODO maybe change error message to be more useful
+    		displayUserHome(user);
+    	}
+    	else{
+    	Account accessed = accountList.get(userIn);
+    	return accessed;
+    }
+    	return accountList.get(0);			// defaults to the first account
+    }
     /**
      * Helper method so we can have consistent dividers between UI sections
      */
