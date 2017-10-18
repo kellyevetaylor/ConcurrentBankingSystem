@@ -80,11 +80,15 @@ public class UserInterface {
         System.out.println("3. Children's Account");
         String choice = getUserInput();
         String accountName;
+        Double overdraft;
         switch (choice) {
             case "1":
                 System.out.println("Enter the name for the current account: ");
                 accountName = getUserInput();
-                Account currentAcc = new CurrentAccount(0, false, user, accountName);
+                System.out.println("Enter the overdraft amount for your current account, 0 may be entered if this isn't required");
+                Scanner scanner = new Scanner(System.in);
+                overdraft = scanner.nextDouble();
+                Account currentAcc = new CurrentAccount(0, false, user, accountName, overdraft);
                 user.addAccount(currentAcc);
                 displayAccountView(user);
                 break;
@@ -101,7 +105,7 @@ public class UserInterface {
                 System.out.println("Enter the name for the kids account");
                 accountName = getUserInput();
                 System.out.println("Please enter the maximum withdrawal amount for " + accountName);
-                Scanner scanner = new Scanner(System.in);
+                scanner = new Scanner(System.in);
                 Double max = scanner.nextDouble();
                 Account kidsAcc = new KidsAccount(0, true, user, accountName, max);
                 user.addAccount(kidsAcc);
@@ -230,23 +234,26 @@ public class UserInterface {
                         break;
 
                     case "2":
-                        if(accessed instanceof SavingsAccount){
+                        if (accessed instanceof SavingsAccount) {
                             System.out.println("Sorry, you can't withdraw from a savings account.");
                             displayAccountView(user);
-                        }
-                        else {
+                        } else {
+                            System.out.println("Please enter an amount to withdraw:");
+                            amount = scanner.nextDouble();
+                            Double overdraft = ((CurrentAccount) accessed).getOverdraft();
 
-                            if (accessed instanceof CurrentAccount) {
-                                System.out.println("Please enter an amount to withdraw:");
-                                amount = scanner.nextDouble();
+                            if (accessed instanceof CurrentAccount && amount > overdraft) {
+                                System.out.println("Sorry, your overdraft amount is " + overdraft + ". The amount requested is greater than this.");
+                                displayAccountView(user);
+                            } else {
                                 CurrentAccount.withdraw(amount);
                                 System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                                 displayAccountView(user);
                             }
-
                         }
                         break;
                     case "3":
+
                     	Account transferTo=accountSelection(user);
                     	System.out.println("Please give the amount to transfer: ");
                     	amount = scanner.nextDouble();
@@ -274,8 +281,9 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
+
     
-    /** Helper method so we dont have to write code to list and select account whenever we need 
+    /** Helper method so we don't have to write code to list and select account whenever we need
      * 
      * 
      * @return the selected account

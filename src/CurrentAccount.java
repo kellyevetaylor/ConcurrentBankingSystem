@@ -9,7 +9,7 @@ public class CurrentAccount implements Account {
     private boolean isJoint;
     private User accountHolder;
     private String accountName;
-    private Integer overdraft;
+    private Double overdraft;
 
     /**
      * Constructor
@@ -17,11 +17,12 @@ public class CurrentAccount implements Account {
      * @param balance the initial balance of the account
      * @param isJoint boolean switch to decide if joint or not (UNSURE ABOUT THIS)
      */
-    CurrentAccount(double balance, boolean isJoint, User accountHolder, String accountName) {
+    CurrentAccount(double balance, boolean isJoint, User accountHolder, String accountName, Double overdraft) {
         this.balance = balance;
         this.isJoint = isJoint;
         this.accountHolder = accountHolder;
         this.accountName = accountName;
+        this.overdraft = overdraft;
     }
 
     @Override
@@ -42,6 +43,10 @@ public class CurrentAccount implements Account {
     @Override
     public String getName() {
         return accountName;
+    }
+
+    public Double getOverdraft(){
+        return overdraft;
     }
 
     @Override
