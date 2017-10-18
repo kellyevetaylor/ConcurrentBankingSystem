@@ -3,7 +3,7 @@ import com.sun.xml.internal.bind.v2.TODO;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class UserInterface {
+public class UserInterface {
     private Authenticator authenticator = new Authenticator();
 
     /**
@@ -231,11 +231,13 @@ class UserInterface {
                             displayAccountView(user);
                         }
                         else {
-                            System.out.println("Please enter an amount to withdraw:");
-                            amount = scanner.nextDouble();
-                            // TODO some way to withdraw
-                            System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
-                            displayAccountView(user);
+                            if (account instanceof CurrentAccount) {
+                                System.out.println("Please enter an amount to withdraw:");
+                                amount = scanner.nextDouble();
+                                CurrentAccount.withdraw(amount);
+                                System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                                displayAccountView(user);
+                            }
                         }
                         break;
 

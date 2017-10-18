@@ -5,7 +5,7 @@
  */
 public class CurrentAccount implements Account {
 
-    private double balance;
+    private static double balance;
     private boolean isJoint;
     private User accountHolder;
     private String accountName;
@@ -30,7 +30,7 @@ public class CurrentAccount implements Account {
     }
 
    
-    public void credit(double amount) {
+    public static void withdraw(double amount) {
         balance -= amount;
     }
 
