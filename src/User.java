@@ -35,4 +35,7 @@ class User {
     void addAccount(Account account) {
         accountsList.add(account);
     }
+    void removeAccount(Account account){
+    	accountsList.remove(account);
+    }
 }
