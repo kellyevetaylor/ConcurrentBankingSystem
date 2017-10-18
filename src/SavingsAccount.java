@@ -41,4 +41,7 @@ public class SavingsAccount implements Account {
     public void transferFrom(double amount) {
     	balance -= amount;
     }
+    public void withdraw(double amount){
+    	System.out.println("Cannot withdraw from savings");
+    }
 }

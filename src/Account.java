@@ -22,6 +22,7 @@ public interface Account {
      */
     void transferFrom(double amount);
 
+    void withdraw(double amount);
 
 
 }

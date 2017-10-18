@@ -252,11 +252,11 @@ public class UserInterface {
                             amount = scanner.nextDouble();
                             Double overdraft = ((CurrentAccount) accessed).getOverdraft();
 
-                            if (accessed instanceof CurrentAccount && amount > overdraft) {
+                            if (accessed instanceof CurrentAccount && accessed.getBalance() - amount < overdraft) {
                                 System.out.println("Sorry, your overdraft amount is " + overdraft + ". The amount requested is greater than this.");
                                 displayAccountView(user);
                             } else {
-                                CurrentAccount.withdraw(amount);
+                                accessed.withdraw(amount);
                                 System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                                 displayAccountView(user);
                             }

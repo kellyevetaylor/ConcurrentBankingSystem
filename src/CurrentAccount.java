@@ -1,7 +1,7 @@
 /**
  * Account Type: Current.
  * This account is a standard account, it has no interest rates
- * for saving money. It will however have an overdraft. TODO think about overdraft implementation
+ * for saving money. It will however have an overdraft. 
  */
 public class CurrentAccount implements Account {
 
@@ -30,8 +30,8 @@ public class CurrentAccount implements Account {
         balance += amount;
     }
 
-   
-    public static void withdraw(double amount) {
+   @Override
+    public void withdraw(double amount) {
         balance -= amount;
     }
 
