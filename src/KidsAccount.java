@@ -6,11 +6,11 @@
 
 public class KidsAccount implements Account {
 
-    private double balance;
+    private static double balance;
     private String accountName;
     private User accountHolder;
     private boolean isJoint;
-    private double max;
+    private static double max;
 
     KidsAccount(double balance, boolean isJoint, User accountHolder, String accountName, double max) {
         this.balance = balance;
@@ -35,7 +35,7 @@ public class KidsAccount implements Account {
     }
 
 
-    public void withdraw(double amount) {
+    public static void withdraw(double amount) {
         if (amount > max) {
             System.out.println("Cannot withdraw over the £" + max + " set.");
         } else {
