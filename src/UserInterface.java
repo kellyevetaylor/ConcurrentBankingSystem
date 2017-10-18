@@ -176,6 +176,16 @@ public class UserInterface {
 
             case "3":
                 // TODO code that will remove an account
+            	
+            	Account toRemove = accountSelection(user);
+            	if(toRemove.getBalance() != 0){
+            		System.out.println("There is still money in your account so it has not been removed.");
+            	}else{
+            		System.out.println("Account with name: "+toRemove.getName() + " has been removed.");
+            		user.removeAccount(toRemove);
+            		
+            	}
+            	displayUserHome(user);
 
             case "4":
                 System.exit(0);
