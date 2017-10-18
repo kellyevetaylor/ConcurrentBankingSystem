@@ -1,6 +1,7 @@
 import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
+import java.util.*;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -207,8 +208,30 @@ public class UserInterface {
             }
 
         } else { // user does have accounts
-            for (Account account : user.getAccounts()) {
-                System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+        	int i = 1;
+            for (Account account: user.getAccounts()){
+            	System.out.print(i+": " );
+            	System.out.print(account.getName()+ "- ");
+            	System.out.println(account.getClass().getSimpleName());
+            	i++;
+            }
+        	System.out.println("What account do you wish to access?");
+        	String userChoice = getUserInput();
+        	int userIn = Integer.parseInt(userChoice) -1;
+        	
+        	
+        	List<Account> accountList= user.getAccounts();
+        	if(userIn > accountList.size()){
+        		System.out.println("Cannot Select an account that doesnt exist");				//TODO maybe change error message to be more useful
+        		displayUserHome(user);
+        	}
+        	else{
+        	Account accessed = accountList.get(userIn);
+        	
+        	
+        	//for (Account account : user.getAccounts()) {
+            
+                System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                 System.out.println("Select an option: ");
                 System.out.println("    1. Deposit money");
                 System.out.println("    2. Withdraw money");
@@ -220,24 +243,32 @@ public class UserInterface {
                     case "1":
                         System.out.println("Please enter an amount to add:");
                         double amount = scanner.nextDouble();
-                        account.deposit(amount);
-                        System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                        accessed.deposit(amount);
+                        System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                         displayAccountView(user);
                         break;
 
                     case "2":
-                        if(account instanceof SavingsAccount){
+                        if(accessed instanceof SavingsAccount){
                             System.out.println("Sorry, you can't withdraw from a savings account.");
                             displayAccountView(user);
                         }
                         else {
-                            if (account instanceof CurrentAccount) {
+
+                            if (accessed instanceof CurrentAccount) {
                                 System.out.println("Please enter an amount to withdraw:");
                                 amount = scanner.nextDouble();
                                 CurrentAccount.withdraw(amount);
-                                System.out.println("Account Name: " + account.getName() + " | " + "Account Balance: " + "£" + account.getBalance());
+                                System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                                 displayAccountView(user);
                             }
+
+                            System.out.println("Please enter an amount to withdraw:");
+                            amount = scanner.nextDouble();
+                            // TODO some way to withdraw
+                            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                            displayAccountView(user);
+
                         }
                         break;
 
