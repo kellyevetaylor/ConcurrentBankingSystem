@@ -20,7 +20,7 @@ public interface Account {
     /**
      * Transfer money from account to another
      */
-    void transfer();
+    void transferFrom(double amount);
 
 
 

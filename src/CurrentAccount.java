@@ -45,7 +45,7 @@ public class CurrentAccount implements Account {
     }
 
     @Override
-    public void transfer() {
-
+    public void transferFrom(double amount) {
+    		balance -= amount;
     }
 }

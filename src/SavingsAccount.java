@@ -38,7 +38,7 @@ public class SavingsAccount implements Account {
     }
 
     @Override
-    public void transfer() {
-
+    public void transferFrom(double amount) {
+    	balance -= amount;
     }
 }
