@@ -32,7 +32,14 @@ public class CurrentAccount implements Account {
 
    @Override
     public void withdraw(double amount) {
-        balance -= amount;
+        if((balance - amount) < -(overdraft)){
+            System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
+       }
+       else{
+            balance -= amount;
+
+        }
+
     }
 
     @Override
