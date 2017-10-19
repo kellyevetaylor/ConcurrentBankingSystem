@@ -259,6 +259,14 @@ public class UserInterface {
                                 accessed.withdraw(amount);
                                 System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                                 displayAccountView(user);
+                                
+                             //TODO Withdraw from KidsAccount
+                            if( accessed instanceof KidsAccount) {
+                            accessed.withdraw(amount);
+                            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                            displayAccountView(user);
+                             }
+
                             }
                         }
                         break;
