@@ -193,6 +193,7 @@ public class UserInterface {
             default:
                 System.out.println("Error, enter a valid number to make your choice");
         }
+
     }
 
     /**
@@ -221,71 +222,73 @@ public class UserInterface {
             }
 
         } else { // user does have accounts
-            Account accessed = accountSelection(user);
+        	 Account accessed= accountSelection(user);
+        	
+        
+                System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                System.out.println("Select an option: ");
+                System.out.println("    1. Deposit money");
+                System.out.println("    2. Withdraw money");
+                System.out.println("    3. Transfer money");
+                System.out.println("    4. Quit");
+                Scanner scanner = new Scanner(System.in);
+                String choice = getUserInput();
 
-
-            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-            System.out.println("Select an option: ");
-            System.out.println("    1. Deposit money");
-            System.out.println("    2. Withdraw money");
-            System.out.println("    3. Transfer money");
-            System.out.println("    4. Quit");
-            Scanner scanner = new Scanner(System.in);
-            String choice = getUserInput();
-            Double overdraft = ((CurrentAccount) accessed).getOverdraft();
-
-            switch (choice) {
-                case "1":
-                    System.out.println("Please enter an amount to add:");
-                    double amount = scanner.nextDouble();
-                    accessed.deposit(amount);
-                    System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                    displayAccountView(user);
-                    break;
-
-                case "2":
-                    if (accessed instanceof SavingsAccount) {
-                        System.out.println("Sorry, you can't withdraw from a savings account.");
-                        displayAccountView(user);
-                    }
-
-                    System.out.println("Please enter an amount to withdraw:");
-                    amount = scanner.nextDouble();
-
-                    if (accessed instanceof KidsAccount) {
-                        KidsAccount.withdraw(amount);
+                switch (choice) {
+                    case "1":
+                        System.out.println("Please enter an amount to add:");
+                        double amount = scanner.nextDouble();
+                        accessed.deposit(amount);
                         System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                         displayAccountView(user);
+                        break;
 
-                    } else if (accessed instanceof CurrentAccount && amount > overdraft) {
-                        System.out.println("Sorry, your overdraft amount is " + overdraft + ". The amount requested is greater than this.");
-                        displayAccountView(user);
+                    case "2":
+                        if (accessed instanceof SavingsAccount) {
+                            System.out.println("Sorry, you can't withdraw from a savings account.");
+                            displayAccountView(user);
+                        } else {
+                            System.out.println("Please enter an amount to withdraw:");
+                            amount = scanner.nextDouble();
+                            Double overdraft = ((CurrentAccount) accessed).getOverdraft();
 
-                    } else {
-                        CurrentAccount.withdraw(amount);
-                        System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                        displayAccountView(user);
-                    }
-                    break;
+                            if (accessed instanceof CurrentAccount && accessed.getBalance() - amount < overdraft) {
+                                System.out.println("Sorry, your overdraft amount is " + overdraft + ". The amount requested is greater than this.");
+                                displayAccountView(user);
+                            } else {
+                                accessed.withdraw(amount);
+                                System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                                displayAccountView(user);
 
-                case "3":
+                             //TODO Withdraw from KidsAccount
+                            if( accessed instanceof KidsAccount) {
+                                accessed.withdraw(amount);
+                                System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                                displayAccountView(user);
+                            }
 
-                    Account transferTo = accountSelection(user);
-                    System.out.println("Please give the amount to transfer: ");
-                    amount = scanner.nextDouble();
-                    transferTo.deposit(amount);
-                    accessed.transferFrom(amount);
-                    System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                    System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
-                    break;
-                case "4":
-                    displayUserHome(user);
-                    break;
-                default:
-                    System.out.println("Error, please enter a valid number to make your choice");
+                            }
+                        }
+                        break;
+                    case "3":
+
+                    	Account transferTo=accountSelection(user);
+                    	System.out.println("Please give the amount to transfer: ");
+                    	amount = scanner.nextDouble();
+                    	transferTo.deposit(amount);
+                    	accessed.transferFrom(amount);
+                    	System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                    	System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
+                    	break;
+                    case "4":
+                        displayUserHome(user);
+                        break;
+                    default:
+                        System.out.println("Error, please enter a valid number to make your choice");
+                }
             }
         }
-    }
+    
 
     /**
      * Helper method so we don't have to write the scanner code every time
@@ -297,38 +300,39 @@ public class UserInterface {
         return scanner.next();
     }
 
-    /**
-     * Helper method so we don't have to write code to list and select account whenever we need
-     *
+    
+    /** Helper method so we don't have to write code to list and select account whenever we need
+     * 
+     * 
      * @return the selected account
      */
-    private Account accountSelection(User user) {
-        int i = 1;
-        for (Account account : user.getAccounts()) {
-            System.out.print(i + ": ");
-            System.out.print("Account name: " + account.getName() + "     ");
-            System.out.println("Account type: " + account.getClass().getSimpleName() + "    Balance: " + account.getBalance());
-            i++;
+    private Account accountSelection(User user){
+    	int i = 1;
+        for (Account account: user.getAccounts()){
+        	System.out.print(i+": " );
+        	System.out.print(account.getName()+ "- ");
+        	System.out.println(account.getClass().getSimpleName());
+        	i++;
         }
-        System.out.println("Select account or 'home' to return to home: ");
-        String userChoice = getUserInput();
-        if (userChoice.equalsIgnoreCase("home")) {
-            displayUserHome(user);
-        }
-        int userIn = Integer.parseInt(userChoice) - 1;
-
-        List<Account> accountList = user.getAccounts();
-        if (userIn > accountList.size()) {
-            System.out.println("That account doesn't exist");
-            displayUserHome(user);
-        } else {
-            Account accessed = accountList.get(userIn);
-            return accessed;
-        }
-        return accountList.get(0);    // defaults to the first account
+    	System.out.println("Select account or EXIT to return to home: ");
+    	String userChoice = getUserInput();
+    	if(userChoice.equals("EXIT")){
+    		displayUserHome(user);
+    	}
+    	int userIn = Integer.parseInt(userChoice) -1;
+    	
+    	
+    	List<Account> accountList= user.getAccounts();
+    	if(userIn > accountList.size()){
+    		System.out.println("Cannot Select an account that doesnt exist");				//TODO maybe change error message to be more useful
+    		displayUserHome(user);
+    	}
+    	else{
+    	Account accessed = accountList.get(userIn);
+    	return accessed;
     }
-
-
+    	return accountList.get(0);			// defaults to the first account
+    }
     /**
      * Helper method so we can have consistent dividers between UI sections
      */
