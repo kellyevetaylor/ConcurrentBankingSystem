@@ -177,7 +177,8 @@ public class UserInterface {
                 break;
 
             case "3":
-
+            		//TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts 
+            		
                 Account toRemove = accountSelection(user);
                 if (toRemove.getBalance() != 0) {
                     System.out.println("There is still money in your account so it has not been removed.");
@@ -187,7 +188,10 @@ public class UserInterface {
 
                 }
                 displayUserHome(user);
-
+                break;
+                
+         // case "4":  			//TODO Add in edit account details, limit to employee only
+            	
             case "4":
                 System.exit(0);
 
