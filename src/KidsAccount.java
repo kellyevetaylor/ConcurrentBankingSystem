@@ -25,9 +25,7 @@ public class KidsAccount implements Account {
     }
 
     /**
-     * "Parent" enters maximum amount that's allowed to be withdrawn from
-     * kids account.    TODO anything over this should throw an error
-     *
+     * Returns the max withdrawal which is set during creation
      * @return
      */
     public double getMax() {
@@ -35,6 +33,12 @@ public class KidsAccount implements Account {
     }
 
 
+    /**
+     * "Parent" enters maximum amount that's allowed to be withdrawn from
+     * kids account.
+     *
+     * @return
+     */
     public void withdraw(double amount) {
         if (amount >= max) {
             System.out.println("Cannot withdraw over the £" + max + " set.");

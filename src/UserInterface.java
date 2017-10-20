@@ -250,16 +250,9 @@ public class UserInterface {
                     } else {
                         System.out.println("Please enter an amount to withdraw:");
                         amount = scanner.nextDouble();
-
-                        if (accessed instanceof KidsAccount) {
-                            accessed.withdraw(amount);
-                            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                            displayAccountView(user);
-                        } else {
-                            accessed.withdraw(amount);
-                            System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
-                            displayAccountView(user);
-                        }
+                        accessed.withdraw(amount);
+                        System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
+                        displayAccountView(user);
                     }
                     break;
 
