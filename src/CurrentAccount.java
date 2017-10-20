@@ -5,7 +5,7 @@
  */
 public class CurrentAccount implements Account {
 
-    private static double balance;
+    private double balance;
     private boolean isJoint;
     private User accountHolder;
     private String accountName;

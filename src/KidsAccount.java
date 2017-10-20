@@ -6,7 +6,7 @@
 
 public class KidsAccount implements Account {
 
-    private static double balance;
+    private double balance;
     private String accountName;
     private User accountHolder;
     private boolean isJoint;

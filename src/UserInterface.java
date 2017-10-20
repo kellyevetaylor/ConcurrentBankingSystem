@@ -223,7 +223,8 @@ public class UserInterface {
             }
 
         } else { // user does have accounts
-            Account accessed = accountSelection(user);
+        	Account accessed = null;
+            accessed = accountSelection(user);
 
             System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
             System.out.println("Select an option: ");
@@ -265,6 +266,7 @@ public class UserInterface {
                     accessed.transferFrom(amount);
                     System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                     System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
+                    displayUserHome(user);
                     break;
                 case "4":
                     displayUserHome(user);
