@@ -258,7 +258,7 @@ public class UserInterface {
                     break;
 
                 case "3":
-
+                	System.out.println("What account to transfer to: ");
                     Account transferTo = accountSelection(user);
                     System.out.println("Please give the amount to transfer: ");
                     amount = scanner.nextDouble();
