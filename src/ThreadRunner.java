@@ -12,23 +12,30 @@ public class ThreadRunner {
 
 		//TODO either just change runnables to launch user interface or keep with hard coding tests
 
-		//Scenario 1 - 2 account holders checking balance simultaneously
-		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
-		Thread checkBalanceThread = new Thread(checkBalance);
-		Thread checkBalanceThread2 = new Thread(checkBalance);
-
-		checkBalanceThread.start();
-		checkBalanceThread2.start();
-
-
-		/*DepositRunnable deposit = new DepositRunnable(100000.00,account);
-		Thread depositThread = new Thread(deposit);
-
+		DepositRunnable deposit = new DepositRunnable(100000.00,account);
 		WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
-		Thread withdrawThread = new Thread(withdraw);*/
+		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
 
-		//depositThread.start();
-		//withdrawThread.start();
+		//Scenario 1 - 2 account holders checking balance simultaneously
+		//Thread checkBalanceThread1 = new Thread(checkBalance);
+		//Thread checkBalanceThread2 = new Thread(checkBalance);
+
+		/*checkBalanceThread1.start();
+		checkBalanceThread2.start();*/
+
+
+		//Scenario 3 - 2 account holders simultaneously depositing/withdrawing and checking balance
+		Thread depositThread = new Thread(deposit);
+		Thread withdrawThread = new Thread(withdraw);
+		Thread checkBalanceThread3 = new Thread(checkBalance);
+		Thread checkBalanceThread4 = new Thread(checkBalance);
+
+
+		depositThread.start();
+		checkBalanceThread3.start();
+		withdrawThread.start();
+		checkBalanceThread4.start();
+
 
 	}
 }

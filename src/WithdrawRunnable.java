@@ -13,11 +13,11 @@ public WithdrawRunnable(double amountIn,Account accountIn){
 @Override
 public void run() {
 	try{
-		Thread.sleep(DELAY);
+
 		account.withdraw(amount);
 		
 		System.out.println("Thread with id "+ Thread.currentThread().getId()+ ",Withdrawing from Account Name:"+account.getName());
-		System.out.println("Thread with id "+ Thread.currentThread().getId()+ ", Account Balance:"+account.getBalance());
+        Thread.sleep(DELAY);
 		}catch(InterruptedException exception){}
 		
 }
