@@ -17,7 +17,6 @@ public class DepositRunnable implements Runnable {
             account.deposit(amount);
             Thread.sleep(DELAY);
             System.out.println("Thread with id " + Thread.currentThread().getId() + ",Depositing to Account Name:" + account.getName());
-            System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
         } catch (InterruptedException exception) {
         }
 

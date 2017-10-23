@@ -14,25 +14,40 @@ public class ThreadRunner {
 		user.addAccount(account);
 		//TODO either just change runnables to launch user interface or keep with hard coding tests
 
-		//Scenario 1 - 2 account holders checking balance simultaneously
-		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
-	//	Thread checkBalanceThread = new Thread(checkBalance);
-	//	Thread checkBalanceThread2 = new Thread(checkBalance);
+		//DepositRunnable deposit = new DepositRunnable(100000.00,account);
+		//WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
+		
 
-	//	checkBalanceThread.start();
-	//	checkBalanceThread2.start();
+		scenario1(account);
+		scenario3(account);
 
 
 		scenario4(account);
+	
+
+
+		
+	}
+	public static void scenario1(Account account){
+		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
+		Thread checkBalanceThread1 = new Thread(checkBalance);
+				Thread checkBalanceThread2 = new Thread(checkBalance);
+
+				checkBalanceThread1.start();
+				checkBalanceThread2.start();
 	}
 
 	public static void scenario4(Account account){
 		DepositRunnable deposit = new DepositRunnable(100000.00,account);
 
-		Thread depositThread = new Thread(deposit);
+		
+
 
 		WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
 		Thread withdrawThread = new Thread(withdraw);
+		Thread depositThread = new Thread(deposit);
+		
+
 
 		
 
@@ -41,6 +56,23 @@ public class ThreadRunner {
 		
 	}
 
+	public static void scenario3(Account account){
+		//Scenario 3 - 2 account holders simultaneously depositing/withdrawing and checking balance
+		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
+			WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
+			DepositRunnable deposit = new DepositRunnable(100000.00,account);
+				Thread withdrawThread = new Thread(withdraw);
+				Thread checkBalanceThread3 = new Thread(checkBalance);
+				Thread checkBalanceThread4 = new Thread(checkBalance);
+				
+				Thread depositThread = new Thread(deposit);
+				
+				depositThread.start();
+				checkBalanceThread3.start();
+				withdrawThread.start();
+				checkBalanceThread4.start();
+
+	}
 
 }
 
