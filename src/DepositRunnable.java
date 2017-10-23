@@ -1,6 +1,7 @@
 
 public class DepositRunnable implements Runnable {
 
+
     Account account;
     double amount;
     private static final int DELAY = 1;
@@ -20,10 +21,4 @@ public class DepositRunnable implements Runnable {
         } catch (InterruptedException exception) {
         }
 
-    }
-
-
-}
-
-
-
+    }}
