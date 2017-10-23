@@ -266,6 +266,7 @@ public class UserInterface {
                     System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
                     displayUserHome(user);
                     break;
+
                 case "4":
                     displayUserHome(user);
                     break;
