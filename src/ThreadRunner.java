@@ -9,6 +9,7 @@ public class ThreadRunner {
 		//TODO either just change runnables to launch user interface or keep with hard coding tests
 		//TODO fix timing
 		
+		
 		DepositRunnable deposit = new DepositRunnable(100000.00,account);
 		Thread depositThread = new Thread(deposit);
 		
@@ -16,6 +17,8 @@ public class ThreadRunner {
 		Thread withdrawThread = new Thread(withdraw);
 		
 		depositThread.start();
+		
+		
 		withdrawThread.start();
 	}
 

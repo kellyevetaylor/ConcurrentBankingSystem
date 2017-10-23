@@ -180,13 +180,7 @@ public class UserInterface {
             		//TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts 
             		
                 Account toRemove = accountSelection(user);
-                if (toRemove.getBalance() != 0) {
-                    System.out.println("There is still money in your account so it has not been removed.");
-                } else {
-                    System.out.println("Account with name: " + toRemove.getName() + " has been removed.");
-                    user.removeAccount(toRemove);
-
-                }
+                user.removeAccount(toRemove);
                 displayUserHome(user);
                 break;
                 

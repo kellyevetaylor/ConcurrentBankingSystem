@@ -36,6 +36,8 @@ class User {
         accountsList.add(account);
     }
     void removeAccount(Account account){
-    	accountsList.remove(account);
-    }
+    	if(account.getBalance()!= 0.0){
+    		System.out.println("Cannot remove account since it still has money in it.");
+    	}else{accountsList.remove(account);
+    }}
 }
