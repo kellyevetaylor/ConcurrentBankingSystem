@@ -23,6 +23,6 @@ public interface Account {
     void transferFrom(double amount);
 
     boolean withdraw(double amount);
-
+//TODO editName()
 
 }

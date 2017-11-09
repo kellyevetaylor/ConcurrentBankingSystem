@@ -44,9 +44,13 @@ public class KidsAccount implements Account {
             System.out.println("Cannot withdraw over the £" + max + " set.");
             return false;
         } else {
+        	if (balance-amount<0){
+        		System.out.println("Your account doesnt have an overdraft amount set");
+        		return false;
+        	}else{
             balance -= amount;
             return true;
-        }
+        }}
     }
 
     @Override

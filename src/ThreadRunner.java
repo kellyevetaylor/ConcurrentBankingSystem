@@ -10,7 +10,7 @@ public class ThreadRunner {
 		
 		User user = new User("Andrew","1234");
 
-		Account account = new CurrentAccount(10.0,false,user,"Andrew",0.0);
+		Account account = new CurrentAccount(10.0,false,user,"Andrew",0.0);		//Initial value 10
 		user.addAccount(account);
 		//TODO either just change runnables to launch user interface or keep with hard coding tests
 
@@ -18,14 +18,14 @@ public class ThreadRunner {
 		//WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
 		
 
-		scenario1(account);
-		scenario3(account);
+	//	scenario1(account);
+	//	scenario3(account);
 
 
-		scenario4(account);
+	//	scenario4(account);
 	
 
-
+		scenario2(account);
 		
 	}
 	public static void scenario1(Account account){
@@ -53,6 +53,18 @@ public class ThreadRunner {
 
 		withdrawThread.start();
 		depositThread.start();
+		
+	}
+	public static void scenario2(Account account){
+		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
+		Thread checkBalanceThread = new Thread(checkBalance);
+		
+		DepositRunnable deposit = new DepositRunnable(100000.00,account);
+		Thread depositThread = new Thread(deposit);
+		
+		checkBalanceThread.start();
+		depositThread.start();
+		
 		
 	}
 
