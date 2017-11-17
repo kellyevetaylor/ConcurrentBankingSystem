@@ -14,8 +14,10 @@ public class CheckBalanceRunnable implements Runnable {
         try {
 
             System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
-            Thread.sleep(DELAY);
-        } catch (InterruptedException exception) {
+          //  Thread.sleep(DELAY);
+        //} catch (InterruptedException exception) {
+        }finally{
+        	
         }
 
     }

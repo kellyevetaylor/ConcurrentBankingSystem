@@ -18,14 +18,14 @@ public class ThreadRunner {
 		//WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
 		
 
-	//	scenario1(account);
+	
 	//	scenario3(account);
 
 
-	//	scenario4(account);
-	
+	scenario4(account);
+	//scenario1(account);
 
-		scenario2(account);
+		//scenario2(account);
 		
 	}
 	public static void scenario1(Account account){
