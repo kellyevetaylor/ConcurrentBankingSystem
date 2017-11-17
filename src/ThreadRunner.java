@@ -1,7 +1,5 @@
 
 public class ThreadRunner {
-
-
     /**
      * Runs the threads
      *
@@ -30,6 +28,7 @@ public class ThreadRunner {
     }
 
     public static void scenario1(Account account) {
+        //Two account holders are simultaneously checking the balance
         CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
         Thread checkBalanceThread1 = new Thread(checkBalance);
         Thread checkBalanceThread2 = new Thread(checkBalance);
@@ -40,6 +39,7 @@ public class ThreadRunner {
 
 
     public static void scenario2(Account account) {
+        //One account holder tries to check the balance while the other is depositing money
         CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
         Thread checkBalanceThread = new Thread(checkBalance);
 
@@ -53,22 +53,20 @@ public class ThreadRunner {
     }
 
     public static void scenario3(Account account) {
-        //Scenario 3 - 2 account holders simultaneously depositing/withdrawing and checking balance
+        //2 account holders simultaneously depositing/withdrawing and checking balance
         CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
         WithdrawRunnable withdraw = new WithdrawRunnable(1000.00, account);
         DepositRunnable deposit = new DepositRunnable(100000.00, account);
-        Thread withdrawThread = new Thread(withdraw);
 
+        Thread withdrawThread = new Thread(withdraw);
         Thread depositThread = new Thread(deposit);
 
         depositThread.start();
-
         withdrawThread.start();
-
-
     }
 
     public static void scenario4(Account account, Account account2) {
+        //Same as 3, but an employee is doing a standing order out of the account
         transferRunnable transfer = new transferRunnable(1000.0, account, account2);
         Thread transferThread = new Thread(transfer);
         scenario3(account);
@@ -76,10 +74,12 @@ public class ThreadRunner {
     }
 
     public static void scenario5(Account account) {
+        //There are insufficient funds to complete a withdraw
 
     }
 
     public static void scenario6(Account account1, Account account2){
+        //2 employees are trying to simultaneously modify bank account details
 
     }
 
