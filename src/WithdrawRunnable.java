@@ -17,29 +17,31 @@ public WithdrawRunnable(double amountIn,Account accountIn){
 
 @Override
 public void run() {
-	lock.lock();
+	boolean noFunds=true;
+	//lock.lock();
 	try{
-		
+		while(noFunds){
 		//Thread.sleep(DELAY);
-		while(account.withdraw(amount) == false){
+		if(account.withdraw(amount) == false){
+			noFunds=true;
 			System.out.println("Waiting for funds to be deposited.");
 			Thread.sleep(DELAY);
-		}
-		account.withdraw(amount);
+		}else{
+		
+			noFunds=false;
+	
 		System.out.println("Thread with id "+ Thread.currentThread().getId()+ ",Withdrawing from Account Name:"+account.getName());
 		System.out.println("Thread with id "+ Thread.currentThread().getId()+ ", Account Balance:"+account.getBalance());	
 
-
-	
+		}
+		}
 		
-		
-     //   Thread.sleep(DELAY);
 
 		}
 	catch(InterruptedException exception){
 	}finally{
-		System.out.print("Withdraw finished");
-		lock.unlock();}
+		System.out.println("Withdraw finished");
+		}
 	
 		
 }

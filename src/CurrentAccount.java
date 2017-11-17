@@ -3,6 +3,7 @@
  * This account is a standard account, it has no interest rates
  * for saving money. It will however have an overdraft. 
  */
+import java.util.concurrent.locks.*;
 public class CurrentAccount implements Account {
 
     private double balance;
@@ -10,6 +11,7 @@ public class CurrentAccount implements Account {
     private User accountHolder;
     private String accountName;
     private Double overdraft;
+    Lock lock;
 
     /**
      * Constructor
@@ -23,15 +25,23 @@ public class CurrentAccount implements Account {
         this.accountHolder = accountHolder;
         this.accountName = accountName;
         this.overdraft = overdraft;
+        lock = new ReentrantLock();
     }
 
     @Override
     public void deposit(double amount) {
+    	lock.lock();
+    	try{
         balance += amount;
+    }finally{
+    	lock.unlock();
     }
+    	}
 
    @Override
     public boolean withdraw(double amount) {
+	   lock.lock();
+	   try{
         if((balance - amount) < -(overdraft)){
             System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
             return false;
@@ -41,7 +51,7 @@ public class CurrentAccount implements Account {
             return true;
 
         }
-
+	   }finally{lock.unlock();}
     }
 
     @Override

@@ -19,10 +19,10 @@ public class ThreadRunner {
 		
 
 	
-	//	scenario3(account);
+		scenario3(account);
 
 
-	scenario4(account);
+	//scenario4(account);
 	//scenario1(account);
 
 		//scenario2(account);
@@ -40,15 +40,9 @@ public class ThreadRunner {
 	public static void scenario4(Account account){
 		DepositRunnable deposit = new DepositRunnable(100000.00,account);
 
-		
-
-
 		WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
 		Thread withdrawThread = new Thread(withdraw);
 		Thread depositThread = new Thread(deposit);
-		
-
-
 		
 
 		withdrawThread.start();
@@ -74,15 +68,13 @@ public class ThreadRunner {
 			WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
 			DepositRunnable deposit = new DepositRunnable(100000.00,account);
 				Thread withdrawThread = new Thread(withdraw);
-				Thread checkBalanceThread3 = new Thread(checkBalance);
-				Thread checkBalanceThread4 = new Thread(checkBalance);
 				
 				Thread depositThread = new Thread(deposit);
 				
 				depositThread.start();
-				checkBalanceThread3.start();
+			
 				withdrawThread.start();
-				checkBalanceThread4.start();
+			
 
 	}
 

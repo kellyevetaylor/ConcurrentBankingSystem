@@ -14,18 +14,18 @@ public class DepositRunnable implements Runnable {
 
     @Override
     public void run() {
-    	lock.lock();
+   
     	try {
-        	//lock.lock();
+        	;
             account.deposit(amount);
-          //  Thread.sleep(DELAY);
+          
             System.out.println("Thread with id " + Thread.currentThread().getId() + ",Depositing to Account Name:" + account.getName());
             System.out.println("Thread with id "+ Thread.currentThread().getId()+ ", Account Balance:"+account.getBalance());	
 
       //  } catch (InterruptedException exception) {
         }finally{
         	System.out.println("Deposit finished");
-        	lock.unlock();
+        	
         }
 
     }}

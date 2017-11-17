@@ -1,9 +1,11 @@
+import java.util.concurrent.locks.Lock;
+
 /**
  * Account type: Kids.
  * This is a savings account for kids but will be joint with a parent.
  * May have some interest and a maximum withdraw.
  */
-
+import java.util.concurrent.locks.*;
 public class KidsAccount implements Account {
 
     private double balance;
@@ -11,18 +13,23 @@ public class KidsAccount implements Account {
     private User accountHolder;
     private boolean isJoint;
     private static double max;
-
+    Lock lock;
     KidsAccount(double balance, boolean isJoint, User accountHolder, String accountName, double max) {
         this.balance = balance;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
         this.max = max;
+        lock = new ReentrantLock();
     }
 
     @Override
     public void deposit(double amount) {
-        balance += amount;
-    }
+       lock.lock();
+    	try{ balance += amount;
+       }finally{
+    	   lock.unlock();
+       }
+       }
 
     /**
      * Returns the max withdrawal which is set during creation
@@ -40,7 +47,8 @@ public class KidsAccount implements Account {
      * @return
      */
     public boolean withdraw(double amount) {
-        if (amount >= max) {
+      lock.lock();
+    	try{  if (amount >= max) {
             System.out.println("Cannot withdraw over the £" + max + " set.");
             return false;
         } else {
@@ -50,7 +58,9 @@ public class KidsAccount implements Account {
         	}else{
             balance -= amount;
             return true;
-        }}
+        }}}finally{
+        	lock.unlock();
+        }
     }
 
     @Override
