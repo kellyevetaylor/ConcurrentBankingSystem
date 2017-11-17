@@ -16,7 +16,7 @@ public class DepositRunnable implements Runnable {
     public void run() {
    
     	try {
-        	;
+        	
             account.deposit(amount);
           
             System.out.println("Thread with id " + Thread.currentThread().getId() + ",Depositing to Account Name:" + account.getName());
