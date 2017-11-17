@@ -10,12 +10,10 @@ public class SavingsAccount implements Account {
     private double balance;
     private String accountName;
     private User accountHolder;
-    private boolean isJoint;
     private double interest;
     Lock lock;
-    SavingsAccount(double balance, boolean isJoint, User accountHolder, String accountName){
+    SavingsAccount(double balance, User accountHolder, String accountName){
         this.balance = balance;
-        this.isJoint = isJoint;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
         lock = new ReentrantLock();

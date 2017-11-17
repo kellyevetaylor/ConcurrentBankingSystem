@@ -7,7 +7,6 @@ import java.util.concurrent.locks.*;
 public class CurrentAccount implements Account {
 
     private double balance;
-    private boolean isJoint;
     private User accountHolder;
     private String accountName;
     private Double overdraft;
@@ -17,11 +16,9 @@ public class CurrentAccount implements Account {
      * Constructor
      *
      * @param balance the initial balance of the account
-     * @param isJoint boolean switch to decide if joint or not (UNSURE ABOUT THIS)
      */
-    CurrentAccount(double balance, boolean isJoint, User accountHolder, String accountName, Double overdraft) {
+    CurrentAccount(double balance, User accountHolder, String accountName, Double overdraft) {
         this.balance = balance;
-        this.isJoint = isJoint;
         this.accountHolder = accountHolder;
         this.accountName = accountName;
         this.overdraft = overdraft;
@@ -49,9 +46,10 @@ public class CurrentAccount implements Account {
        else{
             balance -= amount;
             return true;
-
         }
-	   }finally{lock.unlock();}
+	   }finally{
+	       lock.unlock();
+	   }
     }
 
     @Override
@@ -76,6 +74,10 @@ public class CurrentAccount implements Account {
         	accountIn.deposit(amount);
         	System.out.println("Amount: £ "+amount+ " transferred to account with name: "+accountIn.getName());
         	return true;
-        	}}finally{lock.unlock();}
+        	}
+    	}
+    	finally{
+    	    lock.unlock();
+    	}
     }
 }

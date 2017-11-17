@@ -22,7 +22,10 @@ public interface Account {
      */
     boolean transferFrom(double amount, Account account);
 
+    /**
+     * Withdraw money from an account
+     * @param amount
+     * @return
+     */
     boolean withdraw(double amount);
-//TODO editName()
-
 }

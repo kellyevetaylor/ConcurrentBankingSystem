@@ -1,11 +1,11 @@
 import java.util.concurrent.locks.*;
-public class DepositRunnable implements Runnable {
 
+public class DepositRunnable implements Runnable {
 
     Account account;
     double amount;
     private static final int DELAY = 1;
-    private  ReentrantLock lock =new ReentrantLock();
+    private ReentrantLock lock = new ReentrantLock();
 
     public DepositRunnable(double amountIn, Account accountIn) {
         amount = amountIn;
@@ -14,19 +14,15 @@ public class DepositRunnable implements Runnable {
 
     @Override
     public void run() {
-   
-    	try {
-        	
+
+        try {
             account.deposit(amount);
-          
+
             System.out.println("Thread with id " + Thread.currentThread().getId() + ",Depositing to Account Name:" + account.getName());
-           System.out.println("Thread with id "+ Thread.currentThread().getId()+ ", Account Balance:"+account.getBalance());	
+            System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
 
-      //  } catch (InterruptedException exception) {
-        }finally{
-        	
-        	System.out.println("Deposit finished");
-        	
+        } finally {
+            System.out.println("Deposit finished");
         }
-
-    }}
+    }
+}

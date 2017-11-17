@@ -1,5 +1,3 @@
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.ArrayList;
 import java.util.*;
 import java.util.Scanner;
@@ -88,7 +86,7 @@ public class UserInterface {
                 System.out.println("Enter the overdraft amount for your current account, 0 may be entered if this isn't required");
                 Scanner scanner = new Scanner(System.in);
                 overdraft = scanner.nextDouble();
-                Account currentAcc = new CurrentAccount(0, false, user, accountName, overdraft);
+                Account currentAcc = new CurrentAccount(0, user, accountName, overdraft);
                 user.addAccount(currentAcc);
                 displayAccountView(user);
                 break;
@@ -96,7 +94,7 @@ public class UserInterface {
             case "2":
                 System.out.println("Enter the name for the savings account");
                 accountName = getUserInput();
-                Account savingsAcc = new SavingsAccount(0, false, user, accountName);
+                Account savingsAcc = new SavingsAccount(0, user, accountName);
                 user.addAccount(savingsAcc);
                 displayAccountView(user);
                 break;
@@ -107,7 +105,7 @@ public class UserInterface {
                 System.out.println("Please enter the maximum withdrawal amount for " + accountName);
                 scanner = new Scanner(System.in);
                 Double max = scanner.nextDouble();
-                Account kidsAcc = new KidsAccount(0, true, user, accountName, max);
+                Account kidsAcc = new KidsAccount(0, user, accountName, max);
                 user.addAccount(kidsAcc);
                 displayAccountView(user);
                 break;
@@ -177,15 +175,13 @@ public class UserInterface {
                 break;
 
             case "3":
-            		//TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts 
-            		
+            		//TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts
+
                 Account toRemove = accountSelection(user);
                 user.removeAccount(toRemove);
                 displayUserHome(user);
                 break;
-                
-         // case "4":  			//TODO Add in edit account details, limit to employee only
-            	
+
             case "4":
                 System.exit(0);
 
