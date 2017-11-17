@@ -73,15 +73,27 @@ public class ThreadRunner {
         transferThread.start();
     }
 
-    public static void scenario5(Account account) {
-        //There are insufficient funds to complete a withdraw
-
-    }
+   
 
     public static void scenario6(Account account1, Account account2){
         //2 employees are trying to simultaneously modify bank account details
 
     }
+
+	
+	public static void scenario5(Account account){
+		
+		WithdrawRunnable withdraw=new WithdrawRunnable(1000,account);
+		Thread withdrawT = new Thread(withdraw);
+		withdrawT.start();
+		
+		DepositRunnable deposit=new DepositRunnable(10000,account);
+		Thread depT=new Thread(deposit);
+		
+		//depT.start();
+		
+		}
+	
 
 }
 

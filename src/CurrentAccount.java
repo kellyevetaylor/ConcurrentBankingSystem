@@ -3,6 +3,7 @@
  * This account is a standard account, it has no interest rates
  * for saving money. It will however have an overdraft. 
  */
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.*;
 public class CurrentAccount implements Account {
 
@@ -11,6 +12,7 @@ public class CurrentAccount implements Account {
     private String accountName;
     private Double overdraft;
     Lock lock;
+    Condition noFundsCondition;
 
     /**
      * Constructor
@@ -23,6 +25,7 @@ public class CurrentAccount implements Account {
         this.accountName = accountName;
         this.overdraft = overdraft;
         lock = new ReentrantLock();
+        noFundsCondition = lock.newCondition();
     }
 
     @Override
@@ -30,7 +33,9 @@ public class CurrentAccount implements Account {
     	lock.lock();
     	try{
         balance += amount;
+        noFundsCondition.signalAll();
     }finally{
+    	
     	lock.unlock();
     }
     	}
@@ -38,8 +43,14 @@ public class CurrentAccount implements Account {
    @Override
     public boolean withdraw(double amount) {
 	   lock.lock();
+	   
+	   boolean stillWaiting = true;
 	   try{
         if((balance - amount) < -(overdraft)){
+        	if(!stillWaiting){
+        		Thread.currentThread().interrupt();
+        	}
+        	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
             System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
             return false;
        }
@@ -47,9 +58,12 @@ public class CurrentAccount implements Account {
             balance -= amount;
             return true;
         }
-	   }finally{
-	       lock.unlock();
-	   }
+
+	   }catch(InterruptedException exception){
+		   System.out.println("Cannot wait any longer for funds. Terminating Withdraw");
+		   return false;
+	   }finally{lock.unlock();}
+
     }
 
     @Override

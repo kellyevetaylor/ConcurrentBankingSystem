@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.*;
 
 public class WithdrawRunnable implements Runnable {
@@ -18,14 +19,19 @@ public WithdrawRunnable(double amountIn,Account accountIn){
 @Override
 public void run() {
 	boolean noFunds=true;
+	
 	//lock.lock();
 	try{
+		
 		while(noFunds){
-		//Thread.sleep(DELAY);
+		
 		if(account.withdraw(amount) == false){
 			noFunds=true;
 			System.out.println("Waiting for funds to be deposited.");
-			Thread.sleep(DELAY);
+			
+			
+			//Thread.sleep(DELAY2);
+			
 		}else{
 		
 			noFunds=false;
@@ -38,8 +44,8 @@ public void run() {
 		
 
 		}
-	catch(InterruptedException exception){
-	}finally{
+	finally{
+
 		System.out.println("Withdraw finished");
 		}
 	
