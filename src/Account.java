@@ -20,7 +20,7 @@ public interface Account {
     /**
      * Transfer money from account to another
      */
-    void transferFrom(double amount);
+    boolean transferFrom(double amount, Account account);
 
     boolean withdraw(double amount);
 //TODO editName()

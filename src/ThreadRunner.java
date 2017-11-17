@@ -19,10 +19,10 @@ public class ThreadRunner {
 		
 
 	
-		scenario3(account);
+		//scenario3(account);
 
 
-	//scenario4(account);
+	scenario4(account);
 	//scenario1(account);
 
 		//scenario2(account);
@@ -38,15 +38,12 @@ public class ThreadRunner {
 	}
 
 	public static void scenario4(Account account){
-		DepositRunnable deposit = new DepositRunnable(100000.00,account);
-
-		WithdrawRunnable withdraw= new WithdrawRunnable(1000.00,account);
-		Thread withdrawThread = new Thread(withdraw);
-		Thread depositThread = new Thread(deposit);
-		
-
-		withdrawThread.start();
-		depositThread.start();
+		User user2 = new User("Kelly","12345");
+		Account account2=  new CurrentAccount(10.0,false,user2,"Kelly",0.0);	
+		transferRunnable transfer = new transferRunnable(1000.0,account,account2);
+		Thread transferThread = new Thread(transfer);
+		scenario3(account);	
+		transferThread.start();
 		
 	}
 	public static void scenario2(Account account){

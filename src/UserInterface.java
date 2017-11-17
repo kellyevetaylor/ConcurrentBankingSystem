@@ -260,8 +260,8 @@ public class UserInterface {
                     Account transferTo = accountSelection(user);
                     System.out.println("Please give the amount to transfer: ");
                     amount = scanner.nextDouble();
-                    transferTo.deposit(amount);
-                    accessed.transferFrom(amount);
+                   // transferTo.deposit(amount);
+                    accessed.transferFrom(amount,transferTo);
                     System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                     System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
                     displayUserHome(user);

@@ -37,8 +37,9 @@ public class SavingsAccount implements Account {
 
     @Override
     public double getBalance() {
-        return balance;
-    }
+        lock.lock();try{ return balance;
+        }finally{lock.unlock();}
+        }
 
     @Override
     public String getName() {
@@ -46,8 +47,14 @@ public class SavingsAccount implements Account {
     }
 
     @Override
-    public void transferFrom(double amount) {
-    	balance -= amount;
+    public boolean transferFrom(double amount, Account accountIn) {
+    	lock.lock();
+    	try{if(balance<amount){return false;}else{
+        	balance -= amount;
+        	accountIn.deposit(amount);
+        	System.out.println("Amount: £ "+amount+ " transferred to account with name: "+accountIn.getName());
+        	return true;
+        	}}finally{lock.unlock();}
     }
 
     public boolean withdraw(double amount){
