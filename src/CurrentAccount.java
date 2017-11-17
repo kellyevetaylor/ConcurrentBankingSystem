@@ -49,6 +49,7 @@ public class CurrentAccount implements Account {
         if((balance - amount) < -(overdraft)){
         	if(!stillWaiting){
         		Thread.currentThread().interrupt();
+        		//stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
         	}
         	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
             System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
@@ -69,9 +70,11 @@ public class CurrentAccount implements Account {
 
     @Override
     public void EditAccount(String name){
+    	lock.lock();
+    	try{
 
-        this.accountName = name;
-
+            this.accountName = name;
+    	}finally{lock.unlock();}
     }
 
 

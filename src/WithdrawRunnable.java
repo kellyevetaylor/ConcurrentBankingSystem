@@ -20,17 +20,20 @@ public WithdrawRunnable(double amountIn,Account accountIn){
 public void run() {
 	boolean noFunds=true;
 	
-	//lock.lock();
+	
 	try{
 		
 		while(noFunds){
-		
+		if(account instanceof SavingsAccount){
+			System.out.println("You cannot withdraw from savings accounts.");
+			break;
+		}
 		if(account.withdraw(amount) == false){
 			noFunds=true;
 			System.out.println("Waiting for funds to be deposited.");
 			
 			
-			//Thread.sleep(DELAY2);
+		
 			
 		}else{
 		

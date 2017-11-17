@@ -23,8 +23,8 @@ public class ThreadRunner {
         //scenario2(account);
         //scenario3(account);
         //scenario4(account, account2);
-        //scenario5(account);
-        scenario6(account);
+        scenario5(account);
+       // scenario6(account);
     }
 
     public static void scenario1(Account account) {
@@ -73,12 +73,7 @@ public class ThreadRunner {
         transferThread.start();
     }
 
-   
-
-    public static void scenario6(Account account1, Account account2){
-        //2 employees are trying to simultaneously modify bank account details
-
-    }
+  
 
 	
 	public static void scenario5(Account account){
@@ -95,10 +90,9 @@ public class ThreadRunner {
 		}
     public static void scenario6(Account account){
         EditRunnable editAccountName1 = new EditRunnable(account,"Luca");
-        EditRunnable editAccountName2 = new EditRunnable(account,"Andrew");
+        EditRunnable editAccountName2 = new EditRunnable(account,"John");
         Thread edit1 = new Thread(editAccountName1);
         Thread edit2 = new Thread(editAccountName2);
-
         edit1.start();
         edit2.start();
 

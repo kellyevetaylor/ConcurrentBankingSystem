@@ -15,14 +15,15 @@ public class EditRunnable implements Runnable {
 
     @Override
     public void run() {
-        lock.lock();
+        //lock.lock();
         try {
+          
+            System.out.println("Thread with id " + Thread.currentThread().getId() + ",Editing the  Account Name:" + account.getName()+ " changing to: "+newName);
             account.EditAccount(newName);
-            System.out.println("Thread with id " + Thread.currentThread().getId() + ",Editing the  Account Name:" + account.getName());
         } finally {
 
             System.out.println("The account has been edited, the name of the account is now:" + newName);
-            lock.unlock();
+            //lock.unlock();
         }
     }
 

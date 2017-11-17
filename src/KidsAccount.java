@@ -81,10 +81,11 @@ public class KidsAccount implements Account {
 
     @Override
     public void EditAccount(String name){
+    	lock.lock();
+    	try{
 
-        this.accountName = name;
-
-
+            this.accountName = name;
+    	}finally{lock.unlock();}
     }
 
 

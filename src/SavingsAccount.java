@@ -29,9 +29,11 @@ public class SavingsAccount implements Account {
        }
 
     public void EditAccount(String name){
+    	lock.lock();
+	try{
 
         this.accountName = name;
-
+	}finally{lock.unlock();}
     }
        
 

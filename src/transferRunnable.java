@@ -11,7 +11,10 @@ public class transferRunnable implements Runnable {
 
     @Override
     public void run() {
-        account.transferFrom(amount, transferAcc);
+       if( account.transferFrom(amount, transferAcc)){
+    	  
         System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
-    }
+        System.out.println("Transfer successful");
+    }else{System.out.println("Transfer Failed, insufficent funds.");}
+       }
 }
