@@ -37,15 +37,7 @@ public class ThreadRunner {
 				checkBalanceThread2.start();
 	}
 
-	public static void scenario4(Account account){
-		User user2 = new User("Kelly","12345");
-		Account account2=  new CurrentAccount(10.0,false,user2,"Kelly",0.0);	
-		transferRunnable transfer = new transferRunnable(1000.0,account,account2);
-		Thread transferThread = new Thread(transfer);
-		scenario3(account);	
-		transferThread.start();
-		
-	}
+	
 	public static void scenario2(Account account){
 		CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
 		Thread checkBalanceThread = new Thread(checkBalance);
@@ -73,6 +65,19 @@ public class ThreadRunner {
 				withdrawThread.start();
 			
 
+	}
+	public static void scenario4(Account account){
+		User user2 = new User("Kelly","12345");
+		Account account2=  new CurrentAccount(10.0,false,user2,"Kelly",0.0);	
+		transferRunnable transfer = new transferRunnable(1000.0,account,account2);
+		Thread transferThread = new Thread(transfer);
+		scenario3(account);	
+		transferThread.start();
+		
+	}
+	
+	public static void scenario5(Account account){
+		
 	}
 
 }
