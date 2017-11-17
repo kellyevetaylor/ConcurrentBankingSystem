@@ -24,7 +24,7 @@ public class ThreadRunner {
         //scenario3(account);
         //scenario4(account, account2);
         //scenario5(account);
-        //scenario6(account);
+        scenario6(account);
     }
 
     public static void scenario1(Account account) {
@@ -93,7 +93,18 @@ public class ThreadRunner {
 		//depT.start();
 		
 		}
-	
+    public static void scenario6(Account account){
+        EditRunnable editAccountName1 = new EditRunnable(account,"Luca");
+        EditRunnable editAccountName2 = new EditRunnable(account,"Andrew");
+        Thread edit1 = new Thread(editAccountName1);
+        Thread edit2 = new Thread(editAccountName2);
+
+        edit1.start();
+        edit2.start();
+
+    }
+
+
 
 }
 

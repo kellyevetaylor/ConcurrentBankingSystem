@@ -27,6 +27,12 @@ public class SavingsAccount implements Account {
     	   lock.unlock();
        }
        }
+
+    public void EditAccount(String name){
+
+        this.accountName = name;
+
+    }
        
 
     public void addInterest(double interest){

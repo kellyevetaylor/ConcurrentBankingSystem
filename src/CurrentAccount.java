@@ -66,6 +66,15 @@ public class CurrentAccount implements Account {
 
     }
 
+
+    @Override
+    public void EditAccount(String name){
+
+        this.accountName = name;
+
+    }
+
+
     @Override
     public double getBalance() {
        lock.lock();try{ return balance;

@@ -78,6 +78,16 @@ public class KidsAccount implements Account {
         }
     }
 
+
+    @Override
+    public void EditAccount(String name){
+
+        this.accountName = name;
+
+
+    }
+
+
     @Override
     public String getName() {
         return accountName;

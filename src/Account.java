@@ -3,6 +3,7 @@ public interface Account {
 
     /**
      * Adds money to an account
+     *
      * @param amount the quantity of money to add
      */
     void deposit(double amount);
@@ -24,8 +25,11 @@ public interface Account {
 
     /**
      * Withdraw money from an account
+     *
      * @param amount
      * @return
      */
     boolean withdraw(double amount);
+
+    void EditAccount(String name);
 }
