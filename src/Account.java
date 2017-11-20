@@ -31,5 +31,5 @@ public interface Account {
      */
     boolean withdraw(double amount);
 
-    void EditAccount(String name);
+    void editAccount(String name);
 }

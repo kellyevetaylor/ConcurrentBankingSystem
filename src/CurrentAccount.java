@@ -69,7 +69,7 @@ public class CurrentAccount implements Account {
 
 
     @Override
-    public void EditAccount(String name){
+    public void editAccount(String name){
     	lock.lock();
     	try{
 

@@ -28,7 +28,7 @@ public class SavingsAccount implements Account {
        }
        }
 
-    public void EditAccount(String name){
+    public void editAccount(String name){
     	lock.lock();
 	try{
 

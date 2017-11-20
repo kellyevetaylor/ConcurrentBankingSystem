@@ -7,8 +7,6 @@ public class CheckBalanceRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
+         System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
     }
 }
-
-
