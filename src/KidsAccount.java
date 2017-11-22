@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
  * May have some interest and a maximum withdraw.
  */
 import java.util.concurrent.locks.*;
+import java.util.concurrent.TimeUnit;
 
 public class KidsAccount implements Account {
 
@@ -14,6 +15,7 @@ public class KidsAccount implements Account {
     private User accountHolder;
     private static double max;
     Lock lock;
+    Condition noFundsCondition;
 
     KidsAccount(double balance, User accountHolder, String accountName, double max) {
         this.balance = balance;
@@ -21,6 +23,7 @@ public class KidsAccount implements Account {
         this.accountHolder = accountHolder;
         this.max = max;
         lock = new ReentrantLock();
+        noFundsCondition=lock.newCondition();
     }
 
     @Override
@@ -49,24 +52,34 @@ public class KidsAccount implements Account {
      * @return
      */
     public boolean withdraw(double amount) {
-        lock.lock();
+    	 boolean stillWaiting = true;
+  		
+    	lock.lock();
         try {
             if (amount >= max) {
                 System.out.println("Cannot withdraw over the £" + max + " set.");
                 return false;
             } else {
-                if (balance - amount < 0) {
-                    System.out.println("Your account doesnt have an overdraft amount set");
-                    return false;
-                } else {
-                    balance -= amount;
-                    return true;
-                }
+            	 while((balance - amount) < 0){
+                   	if(!stillWaiting){
+                   		Thread.currentThread().interrupt();
+                   	
+                   	}
+                   	System.out.println("Sorry but you dont have enough money in your account. Waiting for funds to increase.");
+                   	stillWaiting= noFundsCondition.await(15, TimeUnit.SECONDS);
+                   	
+                  }
+                 
+                       balance -= amount;
+                       return true;
             }
-        } finally {
-            lock.unlock();
-        }
-    }
+
+           	   }catch(InterruptedException exception){
+           		   System.out.println("Cannot wait any longer for funds. Terminating Withdraw");
+           		   return false;
+           	   }finally{lock.unlock();}
+
+               }
 
     @Override
     public double getBalance() {

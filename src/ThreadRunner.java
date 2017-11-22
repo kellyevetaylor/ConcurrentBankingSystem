@@ -19,10 +19,10 @@ public class ThreadRunner {
         //Runs scenarios
 
         //scenario1(account);
-        scenario2(account);
+      //  scenario2(account);
         //scenario3(account);
         //scenario4(account, account2);
-        //scenario5(account);
+        scenario5(account);
         //scenario6(account);
     }
 

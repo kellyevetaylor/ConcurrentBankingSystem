@@ -42,23 +42,24 @@ public class CurrentAccount implements Account {
 
    @Override
     public boolean withdraw(double amount) {
+	   boolean stillWaiting = true;
+		
 	   lock.lock();
 	   
-	   boolean stillWaiting = true;
 	   try{
-        if((balance - amount) < -(overdraft)){
+        while((balance - amount) < -(overdraft)){
         	if(!stillWaiting){
         		Thread.currentThread().interrupt();
-        		//stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
+        	//stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
         	}
-        	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
-            System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
-            return false;
+        	System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft +". Waiting for funds to increase.");
+        	stillWaiting= noFundsCondition.await(15, TimeUnit.SECONDS);
+        	
        }
-       else{
+      
             balance -= amount;
             return true;
-        }
+       
 
 	   }catch(InterruptedException exception){
 		   System.out.println("Cannot wait any longer for funds. Terminating Withdraw");
