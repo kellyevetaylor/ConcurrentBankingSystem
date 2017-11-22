@@ -18,7 +18,7 @@ public class WithdrawRunnable implements Runnable {
                    
                 }
                 if (account.withdraw(amount) == false) {
-                   
+                	 System.out.println("Thread with id " + Thread.currentThread().getId() + " , failed withdraw.");
                   //  System.out.println("Waiting for funds to be deposited.");
                 } else {
                     

@@ -11,12 +11,13 @@ public class SavingsAccount implements Account {
     private String accountName;
     private User accountHolder;
     private double interest;
-    Lock lock;
+    private Lock lock;
+    
     SavingsAccount(double balance, User accountHolder, String accountName){
         this.balance = balance;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
-        lock = new ReentrantLock();
+        this.lock = new ReentrantLock();
     }
 
     @Override

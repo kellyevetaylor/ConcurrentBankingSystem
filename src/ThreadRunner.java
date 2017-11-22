@@ -10,7 +10,7 @@ public class ThreadRunner {
         User user1 = new User("Andrew", "password1");
         User user2 = new User("Kelly", "password2");
 
-        Account account = new CurrentAccount(10.0, user1, "Account1", 0.0);        //Initial value 10
+        Account account = new CurrentAccount(100.0, user1, "Account1", 50.0);        //Initial value 10
         Account account1 = new CurrentAccount(10.0, user2, "Account2", 0.0);
 
         user1.addAccount(account);
@@ -20,10 +20,11 @@ public class ThreadRunner {
 
         //scenario1(account);
       //  scenario2(account);
-        //scenario3(account);
-        //scenario4(account, account2);
-        scenario5(account);
+      //  scenario3(account);
+        //scenario4(account, account1);
+       // scenario5(account);
         //scenario6(account);
+        withdrawdouble(account);
     }
 
     public static void scenario1(Account account) {
@@ -94,6 +95,18 @@ public class ThreadRunner {
 
         edit1.start();
         edit2.start();
+    }
+    
+    public static void withdrawdouble(Account account){
+    	 WithdrawRunnable withdraw = new WithdrawRunnable(50, account);
+    	 WithdrawRunnable withdraw2 = new WithdrawRunnable(200, account);
+    	 
+    	 Thread w1=new Thread(withdraw);
+    	 Thread w2=new Thread(withdraw2);
+    	 
+    	 w1.start();
+    	 w2.start();
+    	
     }
 }
 

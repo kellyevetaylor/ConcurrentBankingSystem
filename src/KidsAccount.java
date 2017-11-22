@@ -13,17 +13,17 @@ public class KidsAccount implements Account {
     private double balance;
     private String accountName;
     private User accountHolder;
-    private static double max;
-    Lock lock;
-    Condition noFundsCondition;
+    private double max;
+    private Lock lock;
+    private Condition noFundsCondition;
 
     KidsAccount(double balance, User accountHolder, String accountName, double max) {
         this.balance = balance;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
         this.max = max;
-        lock = new ReentrantLock();
-        noFundsCondition=lock.newCondition();
+        this.lock = new ReentrantLock();
+        this.noFundsCondition=lock.newCondition();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class KidsAccount implements Account {
                    	
                    	}
                    	System.out.println("Sorry but you dont have enough money in your account. Waiting for funds to increase.");
-                   	stillWaiting= noFundsCondition.await(15, TimeUnit.SECONDS);
+                   	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
                    	
                   }
                  
