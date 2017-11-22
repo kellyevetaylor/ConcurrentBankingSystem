@@ -24,8 +24,8 @@ public class CurrentAccount implements Account {
         this.accountHolder = accountHolder;
         this.accountName = accountName;
         this.overdraft = overdraft;
-        this.lock = new ReentrantLock();
-        this.noFundsCondition = lock.newCondition();
+        lock = new ReentrantLock();
+        noFundsCondition = lock.newCondition();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CurrentAccount implements Account {
     public boolean withdraw(double amount) {
 	   boolean stillWaiting = true;
 		
-	   lock.lock();;
+	   lock.lock();
 	   
 	   try{
         while((balance - amount) < -(overdraft)){
@@ -56,9 +56,9 @@ public class CurrentAccount implements Account {
         	if(stillWaiting){
         		System.out.println("Waiting for account balance to increase");
         	}
-        	
-        	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
         	System.out.println("Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £"+ overdraft);
+        	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
+        	
         	
        }
       
@@ -86,7 +86,8 @@ public class CurrentAccount implements Account {
 
     @Override
     public double getBalance() {
-       lock.lock();try{ return balance;
+       lock.lock();
+       try{ return balance;
     }finally{lock.unlock();}}
 
     @Override

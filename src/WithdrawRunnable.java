@@ -17,12 +17,13 @@ public class WithdrawRunnable implements Runnable {
                     System.out.println("You cannot withdraw from savings accounts.");
                    
                 }
+                System.out.println("Thread with id " + Thread.currentThread().getId() + ",Withdrawing from Account Name:" + account.getName());
                 if (account.withdraw(amount) == false) {
                 	 System.out.println("Thread with id " + Thread.currentThread().getId() + " , failed withdraw.");
                   //  System.out.println("Waiting for funds to be deposited.");
                 } else {
                     
-                    System.out.println("Thread with id " + Thread.currentThread().getId() + ",Withdrawing from Account Name:" + account.getName());
+                    
                     System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
                 }
        

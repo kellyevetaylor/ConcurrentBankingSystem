@@ -20,11 +20,11 @@ public class ThreadRunner {
 
         //scenario1(account);
       //  scenario2(account);
-      //  scenario3(account);
+      // scenario3(account);
         //scenario4(account, account1);
-        scenario5(account);
+        //scenario5(account);
         //scenario6(account);
-       // withdrawdouble(account);
+        withdrawdouble(account);
     }
 
     public static void scenario1(Account account) {
