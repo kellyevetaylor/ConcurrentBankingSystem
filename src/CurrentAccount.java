@@ -11,8 +11,8 @@ public class CurrentAccount implements Account {
     private User accountHolder;
     private String accountName;
     private Double overdraft;
-    Lock lock;
-    Condition noFundsCondition;
+    private final Lock lock;
+    private Condition noFundsCondition;
 
     /**
      * Constructor
@@ -44,7 +44,7 @@ public class CurrentAccount implements Account {
     public boolean withdraw(double amount) {
 	   boolean stillWaiting = true;
 		
-	   lock.lock();
+	   lock.lock();;
 	   
 	   try{
         while((balance - amount) < -(overdraft)){

@@ -14,7 +14,7 @@ public class KidsAccount implements Account {
     private String accountName;
     private User accountHolder;
     private double max;
-    private Lock lock;
+    private final Lock lock;
     private Condition noFundsCondition;
 
     KidsAccount(double balance, User accountHolder, String accountName, double max) {

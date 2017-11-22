@@ -11,7 +11,7 @@ public class SavingsAccount implements Account {
     private String accountName;
     private User accountHolder;
     private double interest;
-    private Lock lock;
+    private final Lock lock;
     
     SavingsAccount(double balance, User accountHolder, String accountName){
         this.balance = balance;

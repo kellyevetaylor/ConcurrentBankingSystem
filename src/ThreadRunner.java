@@ -22,9 +22,9 @@ public class ThreadRunner {
       //  scenario2(account);
       //  scenario3(account);
         //scenario4(account, account1);
-       // scenario5(account);
+        scenario5(account);
         //scenario6(account);
-        withdrawdouble(account);
+       // withdrawdouble(account);
     }
 
     public static void scenario1(Account account) {
@@ -81,7 +81,7 @@ public class ThreadRunner {
         DepositRunnable deposit = new DepositRunnable(10000, account);
         Thread depT = new Thread(deposit);
 
-        //depT.start();
+        depT.start();
 
     }
 
