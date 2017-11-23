@@ -1,3 +1,6 @@
+/**
+ * Runnable for editing the name of an account
+ */
 public class EditRunnable implements Runnable {
 
     Account account;
@@ -11,10 +14,10 @@ public class EditRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Thread with id " + Thread.currentThread().getId() + ",Editing the  Account Name:" + account.getName() + " changing to: " + newName);
+            System.out.println("Thread with id " + Thread.currentThread().getId() + ", Editing the Account Name: " + account.getName() + " and changing it to: " + newName);
             account.editAccount(newName);
         } finally {
-            System.out.println("The account has been edited, the name of the account is now: " + account.getName());
+            System.out.println("The account has been edited. The name of the account is now: " + account.getName());
         }
     }
 }

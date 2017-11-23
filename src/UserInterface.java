@@ -175,7 +175,7 @@ public class UserInterface {
                 break;
 
             case "3":
-            		//TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts
+                //TODO limit this to only employees, possibly add in a isEmployee boolean to Users. Allow access to all accounts
 
                 Account toRemove = accountSelection(user);
                 user.removeAccount(toRemove);
@@ -217,7 +217,7 @@ public class UserInterface {
             }
 
         } else { // user does have accounts
-        	Account accessed = null;
+            Account accessed = null;
             accessed = accountSelection(user);
 
             System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
@@ -252,12 +252,12 @@ public class UserInterface {
                     break;
 
                 case "3":
-                	System.out.println("What account to transfer to: ");
+                    System.out.println("What account to transfer to: ");
                     Account transferTo = accountSelection(user);
                     System.out.println("Please give the amount to transfer: ");
                     amount = scanner.nextDouble();
-                   // transferTo.deposit(amount);
-                    accessed.transferFrom(amount,transferTo);
+                    // transferTo.deposit(amount);
+                    accessed.transferFrom(amount, transferTo);
                     System.out.println("Account Name: " + accessed.getName() + " | " + "Account Balance: " + "£" + accessed.getBalance());
                     System.out.println("Account Name: " + transferTo.getName() + " | " + "Account Balance: " + "£" + transferTo.getBalance());
                     displayUserHome(user);

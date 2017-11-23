@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Model the user and establish the relationship with the account class in here.
- * Also consider authentication in here
+ * Models a user. Stores the user's username and password
+ * and adds these to a list of registered accounts.
  */
 class User {
     private String username;
@@ -16,20 +16,30 @@ class User {
         accountsList = new ArrayList<>();
     }
 
+    /**
+     * @return the lists of accounts currently registered
+     */
     List<Account> getAccounts() {
         return accountsList;
     }
 
+    /**
+     * @return user's username
+     */
     String getUsername() {
         return username;
     }
 
+    /**
+     * @return user's password
+     */
     String getPassword() {
         return password;
     }
 
     /**
      * Adds an account to the users list of accounts
+     *
      * @param account the account to be added
      */
     void addAccount(Account account) {
@@ -38,6 +48,7 @@ class User {
 
     /**
      * Removes an account from the users list of account
+     *
      * @param account the account to be removed
      */
     void removeAccount(Account account) {

@@ -8,6 +8,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Account type: Kids
+ * This account is similar to a current account but
+ * a maximum withdrawal amount is set during creation.
+ */
 public class KidsAccount implements Account {
 
     private double balance;
@@ -17,13 +22,21 @@ public class KidsAccount implements Account {
     private final Lock lock;
     private Condition noFundsCondition;
 
+    /**
+     * Constructor
+     *
+     * @param balance       of the account
+     * @param accountHolder user of the account
+     * @param accountName   name of the account
+     * @param max           maximum withdrawal limit
+     */
     KidsAccount(double balance, User accountHolder, String accountName, double max) {
         this.balance = balance;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
         this.max = max;
         this.lock = new ReentrantLock();
-        this.noFundsCondition=lock.newCondition();
+        this.noFundsCondition = lock.newCondition();
     }
 
     @Override
@@ -39,47 +52,43 @@ public class KidsAccount implements Account {
     /**
      * Returns the max withdrawal which is set during creation
      *
-     * @return
+     * @return max
      */
     public double getMax() {
         return max;
     }
 
-    /**
-     * "Parent" enters maximum amount that's allowed to be withdrawn from
-     * kids account.
-     *
-     * @return
-     */
     public boolean withdraw(double amount) {
-    	 boolean stillWaiting = true;
-  		
-    	lock.lock();
+        boolean stillWaiting = true;
+
+        lock.lock();
         try {
             if (amount >= max) {
                 System.out.println("Cannot withdraw over the £" + max + " set.");
                 return false;
             } else {
-            	 while((balance - amount) < 0){
-                   	if(!stillWaiting){
-                   		Thread.currentThread().interrupt();
-                   	
-                   	}
-                   	System.out.println("Sorry but you dont have enough money in your account. Waiting for funds to increase.");
-                   	stillWaiting= noFundsCondition.await(5, TimeUnit.SECONDS);
-                   	
-                  }
-                 
-                       balance -= amount;
-                       return true;
+                while ((balance - amount) < 0) {
+                    if (!stillWaiting) {
+                        Thread.currentThread().interrupt();
+
+                    }
+                    System.out.println("Sorry but you dont have enough money in your account. Waiting for funds to increase.");
+                    stillWaiting = noFundsCondition.await(5, TimeUnit.SECONDS);
+
+                }
+
+                balance -= amount;
+                return true;
             }
 
-           	   }catch(InterruptedException exception){
-           		   System.out.println("Cannot wait any longer for funds. Terminating Withdraw");
-           		   return false;
-           	   }finally{lock.unlock();}
+        } catch (InterruptedException exception) {
+            System.out.println("Cannot wait any longer for funds. Terminating Withdraw");
+            return false;
+        } finally {
+            lock.unlock();
+        }
 
-               }
+    }
 
     @Override
     public double getBalance() {
@@ -91,16 +100,16 @@ public class KidsAccount implements Account {
         }
     }
 
-
     @Override
-    public void editAccount(String name){
-    	lock.lock();
-    	try{
+    public void editAccount(String name) {
+        lock.lock();
+        try {
 
             this.accountName = name;
-    	}finally{lock.unlock();}
+        } finally {
+            lock.unlock();
+        }
     }
-
 
     @Override
     public String getName() {

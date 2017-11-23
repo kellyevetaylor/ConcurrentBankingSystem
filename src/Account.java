@@ -9,11 +9,15 @@ public interface Account {
     void deposit(double amount);
 
     /**
+     * Gets the balance of the account
+     *
      * @return the balance of the account
      */
     double getBalance();
 
     /**
+     * Gets the name of the account
+     *
      * @return the name of the account
      */
     String getName();
@@ -26,10 +30,15 @@ public interface Account {
     /**
      * Withdraw money from an account
      *
-     * @param amount
+     * @param amount the amount to be withdrew
      * @return
      */
     boolean withdraw(double amount);
 
+    /**
+     * Edits the name of an account
+     *
+     * @param name the name to be changed
+     */
     void editAccount(String name);
 }

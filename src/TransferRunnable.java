@@ -1,12 +1,17 @@
+/**
+ * Runnable for transferring money from one account into
+ * another. This is how an employee completes standing orders.
+ */
+
 public class TransferRunnable implements Runnable {
     double amount;
     Account account;
     Account transferAcc;
 
-    public TransferRunnable(double amountin, Account accountIn, Account account2) {
+    public TransferRunnable(double amountIn, Account accountIn, Account account2) {
         account = accountIn;
         transferAcc = account2;
-        amount = amountin;
+        amount = amountIn;
     }
 
     @Override

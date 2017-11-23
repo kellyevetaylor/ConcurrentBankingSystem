@@ -10,21 +10,22 @@ public class ThreadRunner {
         User user1 = new User("Andrew", "password1");
         User user2 = new User("Kelly", "password2");
 
-        Account account = new CurrentAccount(100.0, user1, "Account1", 50.0);        //Initial value 10
-        Account account1 = new CurrentAccount(10.0, user2, "Account2", 0.0);
+        Account account = new CurrentAccount(100.0, user1, "Account1", 50.0);
+        Account account2 = new CurrentAccount(10.0, user2, "Account2", 0.0);
 
         user1.addAccount(account);
-        user2.addAccount(account1);
+        user2.addAccount(account2);
 
         //Runs scenarios
 
         //scenario1(account);
-      //  scenario2(account);
-      // scenario3(account);
+        //scenario2(account);
+        //scenario3(account);
         //scenario4(account, account1);
         //scenario5(account);
         //scenario6(account);
-        withdrawdouble(account);
+        //test1(account,account2);
+        test2(account);
     }
 
     public static void scenario1(Account account) {
@@ -96,17 +97,37 @@ public class ThreadRunner {
         edit1.start();
         edit2.start();
     }
-    
-    public static void withdrawdouble(Account account){
-    	 WithdrawRunnable withdraw = new WithdrawRunnable(50, account);
-    	 WithdrawRunnable withdraw2 = new WithdrawRunnable(200, account);
-    	 
-    	 Thread w1=new Thread(withdraw);
-    	 Thread w2=new Thread(withdraw2);
-    	 
-    	 w1.start();
-    	 w2.start();
-    	
+
+    public static void test1(Account account, Account account2) {
+        //shows results for test 1 from the testing document
+        CheckBalanceRunnable checkBalance = new CheckBalanceRunnable(account);
+        WithdrawRunnable withdraw = new WithdrawRunnable(1000, account);
+        DepositRunnable deposit = new DepositRunnable(2000, account);
+        TransferRunnable transfer = new TransferRunnable(50, account, account2);
+
+        Thread checkT = new Thread(checkBalance);
+        Thread withdrawT = new Thread(withdraw);
+        Thread depositT = new Thread(deposit);
+        Thread transferT = new Thread(transfer);
+
+        checkT.start();
+        withdrawT.start();
+        depositT.start();
+        transferT.start();
+    }
+
+    public static void test2(Account account) {
+        //show results from test 2 from the testing document
+        WithdrawRunnable withdraw = new WithdrawRunnable(100, account);
+        WithdrawRunnable withdraw2 = new WithdrawRunnable(200, account);
+        EditRunnable edit = new EditRunnable(account, "Account 2");
+
+        Thread withdrawT = new Thread(withdraw);
+        Thread withdrawT2 = new Thread(withdraw2);
+        Thread editT = new Thread(edit);
+
+        withdrawT.start();
+        withdrawT2.start();
+        editT.start();
     }
 }
-

@@ -15,6 +15,7 @@ class Authenticator {
      * Returns true if the user is successfully authenticated.
      * A successful authentication occurs when a user enters a matching pair of
      * username and password.
+     *
      * @param check the user to authenticate
      * @return true if authenticated, false otherwise
      */
@@ -33,6 +34,7 @@ class Authenticator {
 
     /**
      * Adds a given user to the list of authenticated users
+     *
      * @param user the user to authenticate
      */
     void setAuthenticated(User user) {
