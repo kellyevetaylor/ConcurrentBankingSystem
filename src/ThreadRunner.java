@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 
 public class ThreadRunner {
     /**
@@ -22,10 +23,10 @@ public class ThreadRunner {
         //scenario2(account);
         //scenario3(account);
         //scenario4(account, account1);
-        //scenario5(account);
+        scenario5(account);
         //scenario6(account);
         //test1(account,account2);
-        test2(account);
+        //test2(account);
     }
 
     public static void scenario1(Account account) {
@@ -74,16 +75,18 @@ public class ThreadRunner {
 
     public static void scenario5(Account account) {
 
+
         //There are insufficient funds to complete a withdraw
-        WithdrawRunnable withdraw = new WithdrawRunnable(1000, account);
+       try{
+    	WithdrawRunnable withdraw = new WithdrawRunnable(1000, account);
         Thread withdrawT = new Thread(withdraw);
         withdrawT.start();
 
         DepositRunnable deposit = new DepositRunnable(10000, account);
         Thread depT = new Thread(deposit);
-
+        TimeUnit.SECONDS.sleep(4);
         depT.start();
-
+       }catch(InterruptedException e){}
     }
 
     public static void scenario6(Account account) {

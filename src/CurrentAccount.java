@@ -51,7 +51,7 @@ public class CurrentAccount implements Account {
 
         try {
             while ((balance - amount) < -(overdraft)) {
-                //System.out.println("Waiting for Funds to increase");
+                
                 if (!stillWaiting) {
                     Thread.currentThread().interrupt();
 
