@@ -56,10 +56,12 @@ public class CurrentAccount implements Account {
                     Thread.currentThread().interrupt();
 
                 }
+                
+                System.out.println("Thread with id " + Thread.currentThread().getId() + ", Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £" + overdraft);
+                
                 if (stillWaiting) {
                     System.out.println("Thread with id " + Thread.currentThread().getId() + ", Waiting for account balance to increase");
                 }
-                System.out.println("Thread with id " + Thread.currentThread().getId() + ", Sorry but the amount you'd like to withdraw exceeds the overdraft you've set of £" + overdraft);
                 stillWaiting = noFundsCondition.await(5, TimeUnit.SECONDS);
 
 

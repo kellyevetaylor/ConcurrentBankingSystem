@@ -84,7 +84,7 @@ public class ThreadRunner {
 
         DepositRunnable deposit = new DepositRunnable(10000, account);
         Thread depT = new Thread(deposit);
-        TimeUnit.SECONDS.sleep(4);
+        TimeUnit.SECONDS.sleep(6);
         depT.start();
        }catch(InterruptedException e){}
     }
