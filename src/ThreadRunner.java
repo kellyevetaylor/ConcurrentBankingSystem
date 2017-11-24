@@ -22,11 +22,11 @@ public class ThreadRunner {
         //scenario1(account);
         //scenario2(account);
         //scenario3(account);
-        //scenario4(account, account1);
-        scenario5(account);
+        //scenario4(account, account2);
+        //scenario5(account);
         //scenario6(account);
         //test1(account,account2);
-        //test2(account);
+        test2(account);
     }
 
     public static void scenario1(Account account) {

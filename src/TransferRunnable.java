@@ -19,9 +19,9 @@ public class TransferRunnable implements Runnable {
         if (account.transferFrom(amount, transferAcc)) {
 
             System.out.println("Thread with id " + Thread.currentThread().getId() + ", Account Balance:" + account.getBalance());
-            System.out.println("Transfer successful");
+            System.out.println("Thread with id " + Thread.currentThread().getId() + ", Transfer successful");
         } else {
-            System.out.println("Transfer Failed, insufficient funds.");
+        	 System.out.println("Thread with id " + Thread.currentThread().getId() + ", Transfer Failed, insufficient funds.");
         }
     }
 }

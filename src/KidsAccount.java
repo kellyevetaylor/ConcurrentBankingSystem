@@ -72,8 +72,11 @@ public class KidsAccount implements Account {
                         Thread.currentThread().interrupt();
 
                     }
-                    System.out.println("Sorry but you dont have enough money in your account. Waiting for funds to increase.");
-                    stillWaiting = noFundsCondition.await(5, TimeUnit.SECONDS);
+                    System.out.println("Thread with id "+ Thread.currentThread().getId() +", Sorry but you dont have enough money in your account. Waiting for funds to increase.");
+                    if (stillWaiting) {
+                        System.out.println("Thread with id " + Thread.currentThread().getId() + ", Waiting for account balance to increase");
+                    }
+                    stillWaiting = noFundsCondition.await(10, TimeUnit.SECONDS);
 
                 }
 

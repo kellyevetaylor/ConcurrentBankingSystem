@@ -62,7 +62,7 @@ public class CurrentAccount implements Account {
                 if (stillWaiting) {
                     System.out.println("Thread with id " + Thread.currentThread().getId() + ", Waiting for account balance to increase");
                 }
-                stillWaiting = noFundsCondition.await(5, TimeUnit.SECONDS);
+                stillWaiting = noFundsCondition.await(10, TimeUnit.SECONDS);
 
 
             }
